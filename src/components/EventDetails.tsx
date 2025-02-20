@@ -20,7 +20,6 @@ const EventDetails = ({ title, hosts, tagline, date, location }: EventDetailsPro
       <div className="space-y-1 text-lg">
         <div>{format(date, "EEE d MMMM, h:mm a")}</div>
         <div>{location.name}</div>
-        <div>{location.address}</div>
       </div>
       <div className="pt-4">
         <p className="text-gray-300">{tagline}</p>

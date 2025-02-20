@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import EventDetails from "@/components/EventDetails";
 import RsvpForm from "@/components/RsvpForm";
@@ -41,7 +42,7 @@ const Index = () => {
       <div className="relative h-[50vh]">
         {/* Background Image with Gradient Overlay */}
         <div 
-          className="absolute inset-0 bg-cover bg-center -translate-y-12" // Added -translate-y-12 to move image up
+          className="absolute inset-0 bg-cover bg-center -translate-y-24" // Increased translate to cut out more sky
           style={{
             backgroundImage: 'url("public/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")'
           }}
@@ -60,7 +61,7 @@ const Index = () => {
             </button>
           </div>
 
-          {/* Main Content - Keeping the same position */}
+          {/* Main Content */}
           <div className="flex-1 flex flex-col justify-end p-6 space-y-6 pt-24">
             <EventDetails {...eventDetails} />
             
