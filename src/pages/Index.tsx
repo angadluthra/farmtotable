@@ -10,6 +10,9 @@ const Index = () => {
   const [hasRsvped, setHasRsvped] = useState(false);
   const [rsvpName, setRsvpName] = useState<string>("");
   const [rsvpResponse, setRsvpResponse] = useState<boolean | null>(null);
+  
+  // Replace this with your Zapier webhook URL
+  const ZAPIER_WEBHOOK_URL = "";
 
   useEffect(() => {
     const storedRsvp = localStorage.getItem('farmToTableRsvp');
@@ -191,7 +194,11 @@ const Index = () => {
           }}
         >
           <div className="bg-neutral-900 rounded-t-3xl sm:rounded-3xl w-full sm:max-w-lg p-6 animate-in slide-in-from-bottom duration-300">
-            <RsvpForm onSubmit={handleRsvpSubmit} attending={isAttending} />
+            <RsvpForm 
+              onSubmit={handleRsvpSubmit} 
+              attending={isAttending}
+              webhookUrl={ZAPIER_WEBHOOK_URL} 
+            />
           </div>
         </div>
       )}
