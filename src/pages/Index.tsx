@@ -33,6 +33,10 @@ const Index = () => {
     setShowRsvpForm(true);
   };
 
+  const handleLocationClick = () => {
+    window.open("https://maps.app.goo.gl/fuatyQqRmzr4cbjk6", "_blank");
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="relative h-[40vh]">
@@ -95,7 +99,10 @@ const Index = () => {
             </div>
           </div>
 
-          <button className="w-full p-4 rounded-xl bg-white/5 text-left flex items-center justify-between group hover:bg-white/10 transition-colors">
+          <button 
+            onClick={handleLocationClick}
+            className="w-full p-4 rounded-xl bg-white/5 text-left flex items-center justify-between group hover:bg-white/10 transition-colors"
+          >
             <div>
               <div className="font-medium">{eventDetails.location.name}</div>
               <div className="text-sm text-gray-400">{eventDetails.location.address}</div>
