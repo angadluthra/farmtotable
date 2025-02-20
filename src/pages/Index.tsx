@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import RsvpForm from "@/components/RsvpForm";
@@ -6,7 +5,6 @@ import { CheckCircle, XCircle, Calendar as CalendarIcon } from "lucide-react";
 import { formatForCalendar } from "@/utils/date";
 
 const Index = () => {
-  const [showRsvpForm, setShowRsvpForm] = useState(false);
   const [isAttending, setIsAttending] = useState(true);
   const [hasRsvped, setHasRsvped] = useState(false);
   const [rsvpName, setRsvpName] = useState<string>("");
@@ -45,12 +43,10 @@ const Index = () => {
     setHasRsvped(true);
     setRsvpName(formData.name);
     setRsvpResponse(formData.attending);
-    setShowRsvpForm(false);
   };
 
   const handleRsvpClick = (attending: boolean) => {
     setIsAttending(attending);
-    setShowRsvpForm(true);
   };
 
   const handleLocationClick = () => {
@@ -81,17 +77,17 @@ const Index = () => {
     <div className="fixed inset-0 overflow-auto bg-black text-white overscroll-none">
       <div className="relative min-h-screen">
         {/* Background Image with Gradient Overlay */}
-        <div 
-          className="fixed inset-0 -z-10"
-        >
+        <div className="fixed inset-0 -z-10">
           <div 
             className="absolute inset-0 bg-cover bg-center scale-110 transform-gpu will-change-transform"
             style={{
               backgroundImage: `url("/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")`,
-              transform: 'translateZ(0)'
+              transform: 'translateZ(0)',
+              backgroundOrigin: 'border-box',
+              backgroundClip: 'border-box'
             }}
           />
-          <div className="fixed inset-0 bg-gradient-to-b from-black/0 via-black/60 to-black pointer-events-none" />
+          <div className="fixed inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black pointer-events-none" />
         </div>
 
         {/* Content */}
@@ -135,6 +131,16 @@ const Index = () => {
                 Not Going
               </button>
             </div>
+
+            {/* Inline RSVP Form */}
+            {!hasRsvped && (
+              <div className="space-y-6 bg-black/40 backdrop-blur-sm rounded-3xl p-6">
+                <RsvpForm 
+                  onSubmit={handleRsvpSubmit} 
+                  attending={isAttending}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -180,25 +186,6 @@ const Index = () => {
           </div>
         </div>
       </div>
-
-      {/* RSVP Form Modal */}
-      {showRsvpForm && (
-        <div 
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-start justify-center overflow-y-auto touch-none"
-          onClick={(e) => {
-            if (e.target === e.currentTarget) {
-              setShowRsvpForm(false);
-            }
-          }}
-        >
-          <div className="bg-neutral-900 rounded-3xl w-full sm:max-w-lg p-6 m-4 animate-in slide-in-from-bottom duration-300">
-            <RsvpForm 
-              onSubmit={handleRsvpSubmit} 
-              attending={isAttending}
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 };
