@@ -78,11 +78,11 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="fixed inset-0 overflow-auto bg-black text-white">
       <div className="relative min-h-screen">
         {/* Background Image with Gradient Overlay */}
         <div 
-          className="absolute inset-0 bg-cover bg-center"
+          className="fixed inset-0 bg-cover bg-center"
           style={{
             backgroundImage: `url("/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")`
           }}
@@ -136,7 +136,7 @@ const Index = () => {
       </div>
 
       {/* Info Section */}
-      <div className="bg-neutral-900/95 backdrop-blur-lg">
+      <div className="bg-neutral-900/95 backdrop-blur-lg relative z-20">
         <div className="container mx-auto max-w-lg p-6 space-y-6">
           <div className="flex items-center justify-between p-4 rounded-xl bg-white/5">
             <div className="flex items-center gap-4">
@@ -180,14 +180,14 @@ const Index = () => {
       {/* RSVP Form Modal */}
       {showRsvpForm && (
         <div 
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center"
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-start justify-center overflow-y-auto touch-none"
           onClick={(e) => {
             if (e.target === e.currentTarget) {
               setShowRsvpForm(false);
             }
           }}
         >
-          <div className="bg-neutral-900 rounded-t-3xl sm:rounded-3xl w-full sm:max-w-lg p-6 animate-in slide-in-from-bottom duration-300">
+          <div className="bg-neutral-900 rounded-3xl w-full sm:max-w-lg p-6 m-4 animate-in slide-in-from-bottom duration-300">
             <RsvpForm 
               onSubmit={handleRsvpSubmit} 
               attending={isAttending}
