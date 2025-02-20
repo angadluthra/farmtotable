@@ -1,11 +1,15 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface RsvpFormProps {
   onSubmit: (data: FormData) => void;
   attending: boolean;
+  initialData?: {
+    name: string;
+    attending: boolean;
+  };
 }
 
 interface FormData {
@@ -14,13 +18,20 @@ interface FormData {
   attending: boolean;
 }
 
-const RsvpForm = ({ onSubmit, attending }: RsvpFormProps) => {
+const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
   const [formData, setFormData] = useState<FormData>({
-    name: "",
+    name: initialData?.name || "",
     mealPreference: "",
     attending: attending,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    setFormData(prev => ({
+      ...prev,
+      attending: attending
+    }));
+  }, [attending]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -38,15 +49,6 @@ const RsvpForm = ({ onSubmit, attending }: RsvpFormProps) => {
     }
 
     try {
-      const { error } = await supabase
-        .from('rsvps')
-        .insert([{
-          name: formData.name,
-          meal_preference: formData.mealPreference,
-          attending: formData.attending,
-        }]);
-
-      if (error) throw error;
       onSubmit(formData);
     } catch (error) {
       console.error('Error submitting RSVP:', error);
@@ -59,7 +61,7 @@ const RsvpForm = ({ onSubmit, attending }: RsvpFormProps) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-6 animate-in slide-in-from-bottom duration-300">
       <h2 className="text-2xl font-semibold tracking-tight">
-        Please provide your details
+        {initialData ? "Update your RSVP details" : "Please provide your details"}
       </h2>
       
       <div className="space-y-4">
@@ -111,7 +113,7 @@ const RsvpForm = ({ onSubmit, attending }: RsvpFormProps) => {
         disabled={isSubmitting}
         className="w-full py-3 px-6 rounded-full bg-white/10 backdrop-blur-sm text-white font-medium hover:bg-white/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {isSubmitting ? "Submitting..." : "Confirm"}
+        {isSubmitting ? "Submitting..." : initialData ? "Update RSVP" : "Confirm"}
       </button>
     </form>
   );

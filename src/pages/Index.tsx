@@ -1,8 +1,10 @@
+
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import RsvpForm from "@/components/RsvpForm";
 import { CheckCircle, XCircle, Calendar as CalendarIcon } from "lucide-react";
 import { formatForCalendar } from "@/utils/date";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
   const [isAttending, setIsAttending] = useState(true);
@@ -11,6 +13,7 @@ const Index = () => {
   const [rsvpResponse, setRsvpResponse] = useState<boolean | null>(null);
   const [showRsvpForm, setShowRsvpForm] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [currentRsvpId, setCurrentRsvpId] = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,6 +32,7 @@ const Index = () => {
       setIsAttending(rsvpData.attending);
       setRsvpName(rsvpData.name);
       setRsvpResponse(rsvpData.attending);
+      setCurrentRsvpId(rsvpData.id);
     }
   }, []);
 
@@ -49,16 +53,58 @@ const Index = () => {
     }
   };
 
-  const handleRsvpSubmit = (formData: any) => {
-    localStorage.setItem('farmToTableRsvp', JSON.stringify(formData));
-    setHasRsvped(true);
-    setRsvpName(formData.name);
-    setRsvpResponse(formData.attending);
-    setShowRsvpForm(false);
+  const handleRsvpSubmit = async (formData: any) => {
+    try {
+      let rsvpId = currentRsvpId;
+      
+      if (currentRsvpId) {
+        // Update existing RSVP
+        const { error: updateError } = await supabase
+          .from('rsvps')
+          .update({
+            attending: formData.attending,
+            meal_preference: formData.mealPreference,
+            previous_status: supabase.sql`array_append(COALESCE(previous_status, ARRAY[]::boolean[]), ${!formData.attending})`,
+            updated_at: new Date().toISOString()
+          })
+          .eq('id', currentRsvpId);
+
+        if (updateError) throw updateError;
+      } else {
+        // Create new RSVP
+        const { data: newRsvp, error: insertError } = await supabase
+          .from('rsvps')
+          .insert([{
+            name: formData.name,
+            meal_preference: formData.mealPreference,
+            attending: formData.attending,
+            previous_status: [],
+          }])
+          .select()
+          .single();
+
+        if (insertError) throw insertError;
+        rsvpId = newRsvp.id;
+      }
+
+      // Update local storage with the latest data
+      localStorage.setItem('farmToTableRsvp', JSON.stringify({
+        ...formData,
+        id: rsvpId
+      }));
+
+      setHasRsvped(true);
+      setRsvpName(formData.name);
+      setRsvpResponse(formData.attending);
+      setCurrentRsvpId(rsvpId);
+      setShowRsvpForm(false);
+    } catch (error) {
+      console.error('Error saving RSVP:', error);
+    }
   };
 
   const handleRsvpClick = (attending: boolean) => {
-    if (!hasRsvped) {
+    if (!hasRsvped || attending !== rsvpResponse) {
       setIsAttending(attending);
       setShowRsvpForm(true);
     }
@@ -219,6 +265,10 @@ const Index = () => {
               <RsvpForm 
                 onSubmit={handleRsvpSubmit} 
                 attending={isAttending}
+                initialData={hasRsvped ? {
+                  name: rsvpName,
+                  attending: isAttending
+                } : undefined}
               />
             </div>
           </div>
