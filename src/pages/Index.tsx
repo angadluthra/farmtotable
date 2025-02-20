@@ -1,7 +1,9 @@
+
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
-import RsvpForm from "@/components/RsvpForm";
-import { CheckCircle, XCircle, Calendar as CalendarIcon } from "lucide-react";
+import TopBar from "@/components/TopBar";
+import ActionButtons from "@/components/ActionButtons";
+import RsvpDrawer from "@/components/RsvpDrawer";
 import { formatForCalendar } from "@/utils/date";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -57,7 +59,6 @@ const Index = () => {
       let rsvpId = currentRsvpId;
       
       if (currentRsvpId) {
-        // Update existing RSVP
         const { error: updateError } = await supabase
           .from('rsvps')
           .update({
@@ -70,7 +71,6 @@ const Index = () => {
 
         if (updateError) throw updateError;
       } else {
-        // Create new RSVP
         const { data: newRsvp, error: insertError } = await supabase
           .from('rsvps')
           .insert([{
@@ -86,7 +86,6 @@ const Index = () => {
         rsvpId = newRsvp.id;
       }
 
-      // Update local storage with the latest data
       localStorage.setItem('farmToTableRsvp', JSON.stringify({
         ...formData,
         id: rsvpId
@@ -125,7 +124,7 @@ const Index = () => {
 
   const handleAddToCalendar = () => {
     const startDate = eventDetails.date;
-    const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // 2 hours duration
+    const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000);
     
     const title = encodeURIComponent(eventDetails.title);
     const location = encodeURIComponent(`${eventDetails.location.name}, ${eventDetails.location.address}`);
@@ -171,57 +170,22 @@ const Index = () => {
 
         {/* Content */}
         <div className="relative z-10 min-h-screen flex flex-col">
-          {/* Top Bar */}
-          <div className="p-4 flex justify-between items-start">
-            {/* RSVP Status in Top Left */}
-            {hasRsvped && (
-              <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${
-                rsvpResponse ? 'bg-white text-green-600' : 'bg-white text-orange-600'
-              }`}>
-                {rsvpResponse ? <CheckCircle size={16} /> : <XCircle size={16} />}
-                <span className="text-sm font-medium">RSVP'd as {rsvpName}</span>
-              </div>
-            )}
-            
-            {/* Calendar Button in Top Right */}
-            <button 
-              onClick={handleAddToCalendar}
-              className="p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors"
-            >
-              <CalendarIcon className="w-6 h-6" />
-            </button>
-          </div>
+          <TopBar 
+            hasRsvped={hasRsvped}
+            rsvpResponse={rsvpResponse}
+            rsvpName={rsvpName}
+            onCalendarClick={handleAddToCalendar}
+          />
 
           {/* Main Content */}
           <div className="flex-1 flex flex-col justify-end pb-12 px-6 space-y-4">
             <div className="space-y-4">
               <EventDetails {...eventDetails} />
-              
-              {/* Action Buttons */}
-              <div className="grid grid-cols-2 gap-4">
-                <button 
-                  onClick={() => handleRsvpClick(true)}
-                  className={`flex items-center justify-center gap-2 py-3 px-6 rounded-full ${
-                    rsvpResponse === true 
-                      ? 'bg-white text-green-600' 
-                      : 'bg-white/10 text-white'
-                  } backdrop-blur-sm font-medium hover:bg-opacity-90 transition-colors`}
-                >
-                  {rsvpResponse === true && <CheckCircle size={20} />}
-                  Going
-                </button>
-                <button 
-                  onClick={() => handleRsvpClick(false)}
-                  className={`flex items-center justify-center gap-2 py-3 px-6 rounded-full ${
-                    rsvpResponse === false 
-                      ? 'bg-white text-orange-600' 
-                      : 'bg-white/10 text-white'
-                  } backdrop-blur-sm font-medium hover:bg-opacity-90 transition-colors`}
-                >
-                  {rsvpResponse === false && <XCircle size={16} />}
-                  Not Going
-                </button>
-              </div>
+              <ActionButtons 
+                rsvpResponse={rsvpResponse}
+                onGoingClick={() => handleRsvpClick(true)}
+                onNotGoingClick={() => handleRsvpClick(false)}
+              />
             </div>
           </div>
         </div>
@@ -264,33 +228,14 @@ const Index = () => {
         </div>
       </div>
 
-      {/* RSVP Form Drawer */}
-      {showRsvpForm && (
-        <>
-          <div 
-            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-opacity"
-            onClick={() => setShowRsvpForm(false)}
-          />
-          <div 
-            className="fixed inset-x-0 bottom-0 z-50 transform transition-transform duration-300 ease-out"
-            style={{
-              transform: showRsvpForm ? 'translateY(0)' : 'translateY(100%)',
-            }}
-          >
-            <div className="bg-neutral-900 rounded-t-3xl w-full max-w-lg mx-auto p-6 space-y-6">
-              <div className="w-12 h-1 bg-white/20 rounded-full mx-auto mb-6" />
-              <RsvpForm 
-                onSubmit={handleRsvpSubmit} 
-                attending={isAttending}
-                initialData={hasRsvped ? {
-                  name: rsvpName,
-                  attending: isAttending
-                } : undefined}
-              />
-            </div>
-          </div>
-        </>
-      )}
+      <RsvpDrawer 
+        show={showRsvpForm}
+        onClose={() => setShowRsvpForm(false)}
+        onSubmit={handleRsvpSubmit}
+        isAttending={isAttending}
+        hasRsvped={hasRsvped}
+        rsvpName={rsvpName}
+      />
     </div>
   );
 };
