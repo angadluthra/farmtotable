@@ -47,7 +47,7 @@ const Index = () => {
             backgroundImage: 'url("public/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")'
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/60 to-black" />
         </div>
 
         {/* Content */}
