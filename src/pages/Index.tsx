@@ -226,10 +226,10 @@ const Index = () => {
 
         {/* Info Section */}
         <div className="relative z-20 -mt-8">
-          <div className="h-24 bg-gradient-to-b from-transparent to-black pointer-events-none" />
-          <div className="relative">
+          <div className="h-32 bg-gradient-to-b from-transparent via-black/80 to-black/95 pointer-events-none" />
+          <div className="relative -mt-8">
             <div className="container mx-auto max-w-lg p-6 space-y-4">
-              <div className="flex items-center justify-between p-4 rounded-xl bg-neutral-900/50 backdrop-blur-sm">
+              <div className="flex items-center justify-between p-4 rounded-xl bg-black/20 backdrop-blur-sm">
                 <div className="flex items-center gap-4">
                   <svg className="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
@@ -243,7 +243,7 @@ const Index = () => {
 
               <button 
                 onClick={handleLocationClick}
-                className="w-full p-4 rounded-xl bg-neutral-900/50 backdrop-blur-sm text-left flex items-center justify-between group hover:bg-neutral-900/70 transition-colors"
+                className="w-full p-4 rounded-xl bg-black/20 backdrop-blur-sm text-left flex items-center justify-between group hover:bg-black/30 transition-colors"
               >
                 <div>
                   <div className="font-medium">{eventDetails.location.name}</div>
