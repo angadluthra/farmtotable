@@ -16,6 +16,8 @@ export type Database = {
           id: string
           meal_preference: string | null
           name: string
+          previous_status: boolean[] | null
+          updated_at: string | null
         }
         Insert: {
           attending: boolean
@@ -23,6 +25,8 @@ export type Database = {
           id?: string
           meal_preference?: string | null
           name: string
+          previous_status?: boolean[] | null
+          updated_at?: string | null
         }
         Update: {
           attending?: boolean
@@ -30,6 +34,8 @@ export type Database = {
           id?: string
           meal_preference?: string | null
           name?: string
+          previous_status?: boolean[] | null
+          updated_at?: string | null
         }
         Relationships: []
       }

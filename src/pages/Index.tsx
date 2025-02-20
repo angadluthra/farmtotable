@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import RsvpForm from "@/components/RsvpForm";
@@ -64,7 +63,7 @@ const Index = () => {
           .update({
             attending: formData.attending,
             meal_preference: formData.mealPreference,
-            previous_status: supabase.sql`array_append(COALESCE(previous_status, ARRAY[]::boolean[]), ${!formData.attending})`,
+            previous_status: [...(await getPreviousStatus(currentRsvpId)), !formData.attending],
             updated_at: new Date().toISOString()
           })
           .eq('id', currentRsvpId);
@@ -101,6 +100,16 @@ const Index = () => {
     } catch (error) {
       console.error('Error saving RSVP:', error);
     }
+  };
+
+  const getPreviousStatus = async (rsvpId: string) => {
+    const { data } = await supabase
+      .from('rsvps')
+      .select('previous_status')
+      .eq('id', rsvpId)
+      .single();
+    
+    return data?.previous_status || [];
   };
 
   const handleRsvpClick = (attending: boolean) => {
