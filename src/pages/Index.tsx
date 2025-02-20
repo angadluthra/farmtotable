@@ -143,19 +143,18 @@ const Index = () => {
     }
   };
 
-  const parallaxValue = Math.min(scrollY * 0.5, 200); // Increased parallax effect
+  const parallaxValue = Math.min(scrollY * 0.3, 100); // Adjusted parallax effect
 
   return (
     <div className="fixed inset-0 overflow-auto bg-black text-white overscroll-none">
-      <div className="relative min-h-[150vh]"> {/* Increased height for parallax */}
+      <div className="relative min-h-[120vh]"> {/* Reduced height to decrease spacing */}
         {/* Background Image with Gradient Overlay */}
         <div className="fixed inset-0 -z-10">
           <div 
-            className="absolute inset-0 bg-cover bg-center scale-110 transform-gpu will-change-transform"
+            className="absolute inset-0 bg-cover bg-center transform-gpu will-change-transform"
             style={{
               backgroundImage: `url("/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")`,
-              transform: `translateY(${parallaxValue}px) scale(1.1)`,
-              transformOrigin: 'center',
+              transform: `translateY(${parallaxValue}px)`,
               transition: 'transform 0.1s linear'
             }}
           />
@@ -183,7 +182,7 @@ const Index = () => {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 flex flex-col justify-end pb-12 px-6 space-y-6">
+          <div className="flex-1 flex flex-col justify-end pb-8 px-6 space-y-6"> {/* Reduced bottom padding */}
             <EventDetails {...eventDetails} />
             
             {/* Action Buttons */}
@@ -216,8 +215,8 @@ const Index = () => {
       </div>
 
       {/* Info Section - with smoother transition */}
-      <div className="relative z-20 -mt-32"> {/* Pulls the section up */}
-        <div className="h-32 bg-gradient-to-b from-transparent via-black/50 to-black/90" />
+      <div className="relative z-20 -mt-16"> {/* Reduced negative margin to bring sections closer */}
+        <div className="h-24 bg-gradient-to-b from-transparent via-black/50 to-black/90" /> {/* Reduced height */}
         <div className="bg-black/90 backdrop-blur-sm">
           <div className="container mx-auto max-w-lg p-6 space-y-6">
             <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 backdrop-blur-sm">
