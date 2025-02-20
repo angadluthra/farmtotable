@@ -148,7 +148,7 @@ const Index = () => {
   return (
     <div className="fixed inset-0 overflow-auto bg-black text-white overscroll-none">
       <div className="relative min-h-[100vh]">
-        {/* Background Image with Gradient Overlay */}
+        {/* Background Image with Parallax */}
         <div className="fixed inset-0 -z-10">
           <div 
             className="absolute inset-0 bg-cover bg-center transform-gpu will-change-transform"
@@ -172,7 +172,18 @@ const Index = () => {
         {/* Content */}
         <div className="relative z-10 min-h-screen flex flex-col">
           {/* Top Bar */}
-          <div className="p-4 flex justify-end items-center">
+          <div className="p-4 flex justify-between items-start">
+            {/* RSVP Status in Top Left */}
+            {hasRsvped && (
+              <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${
+                rsvpResponse ? 'bg-green-500 text-white' : 'bg-yellow-500 text-white'
+              }`}>
+                {rsvpResponse ? <CheckCircle size={16} /> : <XCircle size={16} />}
+                <span className="text-sm font-medium">RSVP'd as {rsvpName}</span>
+              </div>
+            )}
+            
+            {/* Calendar Button in Top Right */}
             <button 
               onClick={handleAddToCalendar}
               className="p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors"
@@ -182,42 +193,44 @@ const Index = () => {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 flex flex-col justify-end pb-8 px-6 space-y-4"> {/* Increased bottom padding */}
-            <EventDetails {...eventDetails} />
-            
-            {/* Action Buttons */}
-            <div className="grid grid-cols-2 gap-4 mb-8"> {/* Increased bottom margin */}
-              <button 
-                onClick={() => handleRsvpClick(true)}
-                className={`flex items-center justify-center gap-2 py-3 px-6 rounded-full ${
-                  rsvpResponse === true 
-                    ? 'bg-green-500/20 text-green-400' 
-                    : 'bg-white/10 text-white'
-                } backdrop-blur-sm font-medium hover:bg-white/20 transition-colors`}
-              >
-                {rsvpResponse === true && <CheckCircle size={20} />}
-                Going
-              </button>
-              <button 
-                onClick={() => handleRsvpClick(false)}
-                className={`flex items-center justify-center gap-2 py-3 px-6 rounded-full ${
-                  rsvpResponse === false 
-                    ? 'bg-yellow-500/20 text-yellow-400' 
-                    : 'bg-white/10 text-white'
-                } backdrop-blur-sm font-medium hover:bg-white/20 transition-colors`}
-              >
-                {rsvpResponse === false && <XCircle size={16} />}
-                Not Going
-              </button>
+          <div className="flex-1 flex flex-col justify-end pb-12 px-6 space-y-4">
+            <div className="space-y-8">
+              <EventDetails {...eventDetails} />
+              
+              {/* Action Buttons */}
+              <div className="grid grid-cols-2 gap-4">
+                <button 
+                  onClick={() => handleRsvpClick(true)}
+                  className={`flex items-center justify-center gap-2 py-3 px-6 rounded-full ${
+                    rsvpResponse === true 
+                      ? 'bg-green-500 text-white' 
+                      : 'bg-white/10 text-white'
+                  } backdrop-blur-sm font-medium hover:bg-opacity-90 transition-colors`}
+                >
+                  {rsvpResponse === true && <CheckCircle size={20} />}
+                  Going
+                </button>
+                <button 
+                  onClick={() => handleRsvpClick(false)}
+                  className={`flex items-center justify-center gap-2 py-3 px-6 rounded-full ${
+                    rsvpResponse === false 
+                      ? 'bg-yellow-500 text-white' 
+                      : 'bg-white/10 text-white'
+                  } backdrop-blur-sm font-medium hover:bg-opacity-90 transition-colors`}
+                >
+                  {rsvpResponse === false && <XCircle size={16} />}
+                  Not Going
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Info Section - with smoother transition */}
-      <div className="relative z-20 -mt-16"> {/* Reduced negative margin */}
-        <div className="h-16 bg-gradient-to-b from-transparent via-black/50 to-black/90" />
-        <div className="bg-black/90 backdrop-blur-sm">
+      {/* Info Section */}
+      <div className="relative z-20 -mt-8">
+        <div className="h-24 bg-gradient-to-b from-transparent to-black" />
+        <div className="bg-black">
           <div className="container mx-auto max-w-lg p-6 space-y-4">
             <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 backdrop-blur-sm">
               <div className="flex items-center gap-4">
@@ -244,16 +257,8 @@ const Index = () => {
               </svg>
             </button>
 
-            <div className="text-center text-sm text-gray-400 pt-2 space-y-4">
+            <div className="text-center text-sm text-gray-400 pt-2">
               <div>Hosted by {eventDetails.hosts}</div>
-              {hasRsvped && (
-                <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${
-                  rsvpResponse ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'
-                }`}>
-                  {rsvpResponse ? <CheckCircle size={16} /> : <XCircle size={16} />}
-                  <span className="text-sm font-medium">RSVP'd as {rsvpName}</span>
-                </div>
-              )}
             </div>
           </div>
         </div>
