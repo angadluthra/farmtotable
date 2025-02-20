@@ -179,8 +179,8 @@ const Index = () => {
             />
 
             {/* Main Content */}
-            <div className="flex-1 flex flex-col justify-end pb-12 px-6 space-y-4">
-              <div className="space-y-4">
+            <div className="flex-1 flex flex-col justify-end pb-6 px-6 space-y-4">
+              <div className="space-y-3">
                 <EventDetails {...eventDetails} />
                 <ActionButtons 
                   rsvpResponse={rsvpResponse}
