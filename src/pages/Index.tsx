@@ -82,22 +82,22 @@ const Index = () => {
       <div className="relative min-h-screen">
         {/* Background Image with Gradient Overlay */}
         <div 
-          className="sticky top-0 h-screen -z-10 overflow-hidden"
+          className="fixed inset-0 -z-10"
         >
           <div 
-            className="absolute inset-0 bg-cover bg-center scale-[1.15] origin-top"
+            className="absolute inset-0 bg-cover bg-center scale-110 transform-gpu will-change-transform"
             style={{
-              backgroundImage: `url("/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")`
+              backgroundImage: `url("/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")`,
+              transform: 'translateZ(0)'
             }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/60 to-black" />
-          </div>
+          />
+          <div className="fixed inset-0 bg-gradient-to-b from-black/0 via-black/60 to-black pointer-events-none" />
         </div>
 
         {/* Content */}
-        <div className="relative z-10 min-h-screen flex flex-col pointer-events-none">
+        <div className="relative z-10 min-h-screen flex flex-col">
           {/* Top Bar */}
-          <div className="p-4 flex justify-end items-center pointer-events-auto">
+          <div className="p-4 flex justify-end items-center">
             <button 
               onClick={handleAddToCalendar}
               className="p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors"
@@ -107,7 +107,7 @@ const Index = () => {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 flex flex-col justify-end p-6 space-y-6 pointer-events-auto">
+          <div className="flex-1 flex flex-col justify-end p-6 space-y-6">
             <EventDetails {...eventDetails} />
             
             {/* Action Buttons */}
@@ -140,7 +140,7 @@ const Index = () => {
       </div>
 
       {/* Info Section */}
-      <div className="bg-neutral-900/95 backdrop-blur-lg relative z-20">
+      <div className="bg-black/95 backdrop-blur-lg relative z-20">
         <div className="container mx-auto max-w-lg p-6 space-y-6">
           <div className="flex items-center justify-between p-4 rounded-xl bg-white/5">
             <div className="flex items-center gap-4">
