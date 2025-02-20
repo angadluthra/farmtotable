@@ -143,11 +143,11 @@ const Index = () => {
     }
   };
 
-  const parallaxValue = Math.min(scrollY * 0.3, 100); // Adjusted parallax effect
+  const parallaxValue = Math.min(scrollY * 0.3, 100);
 
   return (
     <div className="fixed inset-0 overflow-auto bg-black text-white overscroll-none">
-      <div className="relative min-h-[120vh]"> {/* Reduced height to decrease spacing */}
+      <div className="relative min-h-[100vh]"> {/* Reduced height further */}
         {/* Background Image with Gradient Overlay */}
         <div className="fixed inset-0 -z-10">
           <div 
@@ -182,11 +182,11 @@ const Index = () => {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 flex flex-col justify-end pb-8 px-6 space-y-6"> {/* Reduced bottom padding */}
+          <div className="flex-1 flex flex-col justify-end pb-4 px-6 space-y-4"> {/* Reduced padding and spacing */}
             <EventDetails {...eventDetails} />
             
             {/* Action Buttons */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 mb-2"> {/* Added bottom margin */}
               <button 
                 onClick={() => handleRsvpClick(true)}
                 className={`flex items-center justify-center gap-2 py-3 px-6 rounded-full ${
@@ -215,10 +215,10 @@ const Index = () => {
       </div>
 
       {/* Info Section - with smoother transition */}
-      <div className="relative z-20 -mt-16"> {/* Reduced negative margin to bring sections closer */}
-        <div className="h-24 bg-gradient-to-b from-transparent via-black/50 to-black/90" /> {/* Reduced height */}
+      <div className="relative z-20 -mt-24"> {/* Adjusted negative margin */}
+        <div className="h-16 bg-gradient-to-b from-transparent via-black/50 to-black/90" /> {/* Reduced height further */}
         <div className="bg-black/90 backdrop-blur-sm">
-          <div className="container mx-auto max-w-lg p-6 space-y-6">
+          <div className="container mx-auto max-w-lg p-6 space-y-4"> {/* Reduced spacing between elements */}
             <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 backdrop-blur-sm">
               <div className="flex items-center gap-4">
                 <svg className="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -244,7 +244,7 @@ const Index = () => {
               </svg>
             </button>
 
-            <div className="text-center text-sm text-gray-400 pt-2 space-y-6">
+            <div className="text-center text-sm text-gray-400 pt-2 space-y-4"> {/* Reduced spacing */}
               <div>Hosted by {eventDetails.hosts}</div>
               {hasRsvped && (
                 <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${
