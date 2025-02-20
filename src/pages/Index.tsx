@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import TopBar from "@/components/TopBar";
@@ -145,7 +146,7 @@ const Index = () => {
 
   return (
     <div className="fixed inset-0 bg-black text-white overscroll-none">
-      <div className="absolute inset-0 overflow-auto">
+      <div className="absolute inset-0 overflow-auto scrollbar-none" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
         <div className="relative min-h-screen">
           {/* Background Image with Parallax */}
           <div className="fixed inset-0 -z-10">
