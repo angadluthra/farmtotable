@@ -2,13 +2,14 @@
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import RsvpForm from "@/components/RsvpForm";
-import { CheckCircle } from "lucide-react";
+import { CheckCircle, XCircle } from "lucide-react";
 
 const Index = () => {
   const [showRsvpForm, setShowRsvpForm] = useState(false);
   const [isAttending, setIsAttending] = useState(true);
   const [hasRsvped, setHasRsvped] = useState(false);
   const [rsvpName, setRsvpName] = useState<string>("");
+  const [rsvpResponse, setRsvpResponse] = useState<boolean | null>(null);
 
   useEffect(() => {
     // Check local storage for RSVP status
@@ -18,6 +19,7 @@ const Index = () => {
       setHasRsvped(true);
       setIsAttending(rsvpData.attending);
       setRsvpName(rsvpData.name);
+      setRsvpResponse(rsvpData.attending);
     }
   }, []);
 
@@ -39,10 +41,10 @@ const Index = () => {
   };
 
   const handleRsvpSubmit = (formData: any) => {
-    // Store RSVP data in localStorage
     localStorage.setItem('farmToTableRsvp', JSON.stringify(formData));
     setHasRsvped(true);
     setRsvpName(formData.name);
+    setRsvpResponse(formData.attending);
     setShowRsvpForm(false);
   };
 
@@ -73,8 +75,10 @@ const Index = () => {
           {/* Top Bar */}
           <div className="p-4 flex justify-between items-center">
             {hasRsvped && (
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 text-green-400">
-                <CheckCircle size={16} />
+              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full ${
+                rsvpResponse ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'
+              }`}>
+                {rsvpResponse ? <CheckCircle size={16} /> : <XCircle size={16} />}
                 <span className="text-sm font-medium">RSVP'd as {rsvpName}</span>
               </div>
             )}
@@ -93,14 +97,24 @@ const Index = () => {
             <div className="grid grid-cols-2 gap-4 pb-8">
               <button 
                 onClick={() => handleRsvpClick(true)}
-                className="flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-white/10 backdrop-blur-sm text-white font-medium hover:bg-white/20 transition-colors"
+                className={`flex items-center justify-center gap-2 py-3 px-6 rounded-full ${
+                  rsvpResponse === true 
+                    ? 'bg-green-500/20 text-green-400' 
+                    : 'bg-white/10 text-white'
+                } backdrop-blur-sm font-medium hover:bg-white/20 transition-colors`}
               >
+                {rsvpResponse === true && <CheckCircle size={20} />}
                 Going
               </button>
               <button 
                 onClick={() => handleRsvpClick(false)}
-                className="flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-white/10 backdrop-blur-sm text-white font-medium hover:bg-white/20 transition-colors"
+                className={`flex items-center justify-center gap-2 py-3 px-6 rounded-full ${
+                  rsvpResponse === false 
+                    ? 'bg-yellow-500/20 text-yellow-400' 
+                    : 'bg-white/10 text-white'
+                } backdrop-blur-sm font-medium hover:bg-white/20 transition-colors`}
               >
+                {rsvpResponse === false && <XCircle size={20} />}
                 Not Going
               </button>
             </div>

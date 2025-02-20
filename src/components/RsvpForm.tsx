@@ -1,5 +1,6 @@
 
 import React, { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 interface RsvpFormProps {
   onSubmit: (data: FormData) => void;
@@ -52,22 +53,25 @@ const RsvpForm = ({ onSubmit, attending }: RsvpFormProps) => {
         </div>
 
         {attending && (
-          <div className="space-y-2">
+          <div className="space-y-2 relative">
             <label htmlFor="mealPreference" className="text-sm font-medium text-white/60">
               Meal Preference
             </label>
-            <select
-              id="mealPreference"
-              name="mealPreference"
-              value={formData.mealPreference}
-              onChange={handleInputChange}
-              className="w-full px-4 py-3 rounded-2xl border border-white/10 bg-white/5 text-white focus:border-white/20 focus:outline-none focus:ring-0 transition-colors backdrop-blur-sm appearance-none"
-            >
-              <option value="" className="bg-neutral-900">I'm okay with anything</option>
-              <option value="vegetarian" className="bg-neutral-900">Vegetarian</option>
-              <option value="vegan" className="bg-neutral-900">Vegan</option>
-              <option value="gluten-free" className="bg-neutral-900">Gluten Free</option>
-            </select>
+            <div className="relative">
+              <select
+                id="mealPreference"
+                name="mealPreference"
+                value={formData.mealPreference}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 rounded-2xl border border-white/10 bg-white/5 text-white focus:border-white/20 focus:outline-none focus:ring-0 transition-colors backdrop-blur-sm appearance-none"
+              >
+                <option value="" className="bg-neutral-900">I'm okay with anything</option>
+                <option value="vegetarian" className="bg-neutral-900">Vegetarian</option>
+                <option value="vegan" className="bg-neutral-900">Vegan</option>
+                <option value="gluten-free" className="bg-neutral-900">Gluten Free</option>
+              </select>
+              <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60" size={20} />
+            </div>
           </div>
         )}
       </div>
