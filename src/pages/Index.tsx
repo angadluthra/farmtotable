@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import TopBar from "@/components/TopBar";
@@ -27,16 +28,28 @@ const Index = () => {
     };
   }, []);
 
-  // Add effect to prevent scrolling when form is open
+  // Effect to handle mobile viewport adjustments
   useEffect(() => {
     if (showRsvpForm) {
+      // Prevent scrolling on main content when form is open
       document.body.style.overflow = 'hidden';
+      
+      // Add listeners for visual viewport changes
+      const handleVisualViewport = () => {
+        window.scrollTo(0, 0);
+      };
+      
+      window.visualViewport?.addEventListener('resize', handleVisualViewport);
+      window.visualViewport?.addEventListener('scroll', handleVisualViewport);
+
+      return () => {
+        document.body.style.overflow = '';
+        window.visualViewport?.removeEventListener('resize', handleVisualViewport);
+        window.visualViewport?.removeEventListener('scroll', handleVisualViewport);
+      };
     } else {
       document.body.style.overflow = '';
     }
-    return () => {
-      document.body.style.overflow = '';
-    };
   }, [showRsvpForm]);
 
   const storedRsvp = localStorage.getItem('farmToTableRsvp');
@@ -214,10 +227,10 @@ const Index = () => {
 
         {/* Info Section */}
         <div className="relative z-20 -mt-8">
-          <div className="h-24 bg-gradient-to-b from-transparent to-black" />
-          <div>
+          <div className="h-24 bg-gradient-to-b from-transparent to-black pointer-events-none" />
+          <div className="relative">
             <div className="container mx-auto max-w-lg p-6 space-y-4">
-              <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 backdrop-blur-sm">
+              <div className="flex items-center justify-between p-4 rounded-xl bg-black/30 backdrop-blur-sm">
                 <div className="flex items-center gap-4">
                   <svg className="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
@@ -231,7 +244,7 @@ const Index = () => {
 
               <button 
                 onClick={handleLocationClick}
-                className="w-full p-4 rounded-xl bg-white/5 backdrop-blur-sm text-left flex items-center justify-between group hover:bg-white/10 transition-colors"
+                className="w-full p-4 rounded-xl bg-black/30 backdrop-blur-sm text-left flex items-center justify-between group hover:bg-black/40 transition-colors"
               >
                 <div>
                   <div className="font-medium">{eventDetails.location.name}</div>
