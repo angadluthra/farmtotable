@@ -226,8 +226,7 @@ const Index = () => {
 
         {/* Info Section */}
         <div className="relative z-20 -mt-8">
-          <div className="h-32 bg-gradient-to-b from-transparent via-black/80 to-black/95 pointer-events-none" />
-          <div className="relative -mt-8">
+          <div className="relative">
             <div className="container mx-auto max-w-lg p-6 space-y-4">
               <div className="flex items-center justify-between p-4 rounded-xl bg-black/20 backdrop-blur-sm">
                 <div className="flex items-center gap-4">
@@ -254,10 +253,13 @@ const Index = () => {
                 </svg>
               </button>
 
-              <div className="text-center text-sm text-gray-400 pt-2">
+              <div className="text-center text-sm text-gray-400 pt-2 pb-12">
                 <div>Hosted by {eventDetails.hosts}</div>
               </div>
             </div>
+            
+            {/* Bottom gradient */}
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none" />
           </div>
         </div>
       </div>
