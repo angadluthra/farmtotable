@@ -20,21 +20,24 @@ const Index = () => {
       setScrollY(window.scrollY);
     };
 
-    // Handle viewport height changes (e.g., when keyboard appears/disappears)
-    const handleResize = () => {
-      // Force a reflow by touching the scroll position
-      window.scrollTo(window.scrollX, window.scrollY);
-    };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleResize, { passive: true });
     
-    // Cleanup
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  // Add effect to prevent scrolling when form is open
+  useEffect(() => {
+    if (showRsvpForm) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [showRsvpForm]);
 
   const storedRsvp = localStorage.getItem('farmToTableRsvp');
   useEffect(() => {
@@ -161,8 +164,7 @@ const Index = () => {
         className="absolute inset-0 overflow-auto scrollbar-none" 
         style={{ 
           scrollbarWidth: 'none', 
-          msOverflowStyle: 'none',
-          minHeight: '100%' 
+          msOverflowStyle: 'none'
         }}
       >
         <div className="relative min-h-screen">
@@ -211,9 +213,9 @@ const Index = () => {
         </div>
 
         {/* Info Section */}
-        <div className="relative z-20 -mt-8 bg-black">
+        <div className="relative z-20 -mt-8">
           <div className="h-24 bg-gradient-to-b from-transparent to-black" />
-          <div className="bg-black">
+          <div>
             <div className="container mx-auto max-w-lg p-6 space-y-4">
               <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 backdrop-blur-sm">
                 <div className="flex items-center gap-4">
