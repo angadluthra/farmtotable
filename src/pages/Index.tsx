@@ -194,7 +194,7 @@ const Index = () => {
 
           {/* Main Content */}
           <div className="flex-1 flex flex-col justify-end pb-12 px-6 space-y-4">
-            <div className="space-y-8">
+            <div className="space-y-4">
               <EventDetails {...eventDetails} />
               
               {/* Action Buttons */}
