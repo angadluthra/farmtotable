@@ -1,11 +1,12 @@
 
-import React from "react";
+import React, { useState } from "react";
 import EventDetails from "@/components/EventDetails";
 import RsvpForm from "@/components/RsvpForm";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
   const { toast } = useToast();
+  const [showRsvpForm, setShowRsvpForm] = useState(false);
   const eventDetails = {
     title: "Farm to Table",
     hosts: "Angad & Madhavi",
@@ -25,6 +26,7 @@ const Index = () => {
 
   const handleRsvpSubmit = (formData: any) => {
     console.log("RSVP Submitted:", formData);
+    setShowRsvpForm(false);
     toast({
       title: formData.attending ? "Thanks for RSVPing!" : "Sorry you can't make it",
       description: formData.attending ? "We look forward to seeing you." : "Maybe next time!",
@@ -35,8 +37,15 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="relative h-screen">
-        {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-950 via-neutral-900 to-black" />
+        {/* Background Image with Gradient Overlay */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: 'url("https://images.unsplash.com/photo-1465379944081-7f47de8d74ac?auto=format&fit=crop&w=1920")'
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black" />
+        </div>
 
         {/* Content */}
         <div className="relative z-10 h-full flex flex-col">
@@ -63,7 +72,7 @@ const Index = () => {
             {/* Action Buttons */}
             <div className="grid grid-cols-2 gap-4 pb-8">
               <button 
-                onClick={() => handleRsvpSubmit({ attending: true })}
+                onClick={() => setShowRsvpForm(true)}
                 className="flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-white/10 backdrop-blur-sm text-white font-medium hover:bg-white/20 transition-colors"
               >
                 Going
@@ -79,41 +88,41 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Weather and Location Section */}
-      <div className="bg-black/95 backdrop-blur-lg p-6 space-y-8">
-        <div className="space-y-4">
-          <h3 className="text-gray-400 text-lg font-medium">Weather</h3>
-          <div className="flex items-center justify-between">
+      {/* Condensed Info Section */}
+      <div className="bg-black/95 backdrop-blur-lg">
+        <div className="container mx-auto max-w-lg p-6 space-y-6">
+          <div className="flex items-center justify-between p-4 rounded-xl bg-white/5">
             <div className="flex items-center gap-4">
-              <svg className="w-12 h-12 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
               </svg>
               <div>
-                <div className="text-4xl font-light">{eventDetails.weather.temp}°</div>
-                <div className="text-gray-400">{eventDetails.weather.condition}</div>
+                <div className="text-2xl font-light">{eventDetails.weather.temp}°</div>
+                <div className="text-sm text-gray-400">H: {eventDetails.weather.high}° L: {eventDetails.weather.low}°</div>
               </div>
             </div>
-            <div className="text-right text-gray-400">
-              <div>H: {eventDetails.weather.high}° L: {eventDetails.weather.low}°</div>
-            </div>
           </div>
-        </div>
 
-        <div className="space-y-4">
-          <h3 className="text-gray-400 text-lg font-medium">Location</h3>
-          <div className="rounded-2xl overflow-hidden h-48 bg-gray-800">
-            {/* Map placeholder - In a real app, integrate with a maps provider */}
-            <div className="w-full h-full bg-gray-800" />
-          </div>
-          <div className="space-y-1">
-            <div className="text-xl font-medium">{eventDetails.location.name}</div>
-            <div className="text-gray-400">{eventDetails.location.address}</div>
-          </div>
-          <button className="w-full py-3 px-6 rounded-full bg-white/10 backdrop-blur-sm text-white font-medium hover:bg-white/20 transition-colors">
-            Get Directions
+          <button className="w-full p-4 rounded-xl bg-white/5 text-left flex items-center justify-between group hover:bg-white/10 transition-colors">
+            <div>
+              <div className="font-medium">{eventDetails.location.name}</div>
+              <div className="text-sm text-gray-400">{eventDetails.location.address}</div>
+            </div>
+            <svg className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
           </button>
         </div>
       </div>
+
+      {/* RSVP Form Modal */}
+      {showRsvpForm && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-neutral-900 rounded-3xl w-full max-w-lg p-6">
+            <RsvpForm onSubmit={handleRsvpSubmit} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
