@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import TopBar from "@/components/TopBar";
@@ -21,8 +20,20 @@ const Index = () => {
       setScrollY(window.scrollY);
     };
 
+    // Handle viewport height changes (e.g., when keyboard appears/disappears)
+    const handleResize = () => {
+      // Force a reflow by touching the scroll position
+      window.scrollTo(window.scrollX, window.scrollY);
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize, { passive: true });
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const storedRsvp = localStorage.getItem('farmToTableRsvp');
@@ -146,7 +157,14 @@ const Index = () => {
 
   return (
     <div className="fixed inset-0 bg-black text-white overscroll-none">
-      <div className="absolute inset-0 overflow-auto scrollbar-none" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+      <div 
+        className="absolute inset-0 overflow-auto scrollbar-none" 
+        style={{ 
+          scrollbarWidth: 'none', 
+          msOverflowStyle: 'none',
+          minHeight: '100%' 
+        }}
+      >
         <div className="relative min-h-screen">
           {/* Background Image with Parallax */}
           <div className="fixed inset-0 -z-10">
@@ -193,7 +211,7 @@ const Index = () => {
         </div>
 
         {/* Info Section */}
-        <div className="relative z-20 -mt-8">
+        <div className="relative z-20 -mt-8 bg-black">
           <div className="h-24 bg-gradient-to-b from-transparent to-black" />
           <div className="bg-black">
             <div className="container mx-auto max-w-lg p-6 space-y-4">
