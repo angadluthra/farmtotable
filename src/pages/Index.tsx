@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import RsvpForm from "@/components/RsvpForm";
@@ -96,7 +97,7 @@ const Index = () => {
         {/* Background Image with Gradient Overlay */}
         <div className="fixed inset-0 -z-10">
           <div 
-            className="absolute inset-0 bg-cover bg-center scale-110 transform-gpu will-change-transform"
+            className="absolute inset-0 bg-cover bg-bottom scale-110 transform-gpu will-change-transform"
             style={{
               backgroundImage: `url("/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")`,
               transform: `translateZ(0) translateY(${parallaxValue}px) scale(${1.1 + (scrollY * 0.0002)})`,
@@ -129,11 +130,11 @@ const Index = () => {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 flex flex-col justify-end p-6 space-y-6">
+          <div className="flex-1 flex flex-col justify-end pb-12 px-6 space-y-6">
             <EventDetails {...eventDetails} />
             
             {/* Action Buttons */}
-            <div className="grid grid-cols-2 gap-4 pb-8">
+            <div className="grid grid-cols-2 gap-4">
               <button 
                 onClick={() => handleRsvpClick(true)}
                 className={`flex items-center justify-center gap-2 py-3 px-6 rounded-full ${
