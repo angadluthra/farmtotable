@@ -166,7 +166,7 @@ const Index = () => {
             </svg>
           </button>
 
-          <div className="text-center text-sm text-gray-400 pt-2 space-y-3">
+          <div className="text-center text-sm text-gray-400 pt-2 space-y-6">
             <div>Hosted by {eventDetails.hosts}</div>
             {hasRsvped && (
               <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${
