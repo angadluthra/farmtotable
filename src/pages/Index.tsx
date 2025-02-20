@@ -72,15 +72,7 @@ const Index = () => {
         {/* Content */}
         <div className="relative z-10 h-full flex flex-col">
           {/* Top Bar */}
-          <div className="p-4 flex justify-between items-center">
-            {hasRsvped && (
-              <div className={`flex items-center gap-2 px-3 py-1.5 rounded-full ${
-                rsvpResponse ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'
-              }`}>
-                {rsvpResponse ? <CheckCircle size={16} /> : <XCircle size={16} />}
-                <span className="text-sm font-medium">RSVP'd as {rsvpName}</span>
-              </div>
-            )}
+          <div className="p-4 flex justify-end items-center">
             <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -150,7 +142,14 @@ const Index = () => {
           </button>
 
           <div className="text-center text-sm text-gray-400 pt-2">
-            Hosted by {eventDetails.hosts}
+            {hasRsvped && (
+              <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${
+                rsvpResponse ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'
+              }`}>
+                {rsvpResponse ? <CheckCircle size={16} /> : <XCircle size={16} />}
+                <span className="text-sm font-medium">RSVP'd as {rsvpName}</span>
+              </div>
+            )}
           </div>
         </div>
       </div>
