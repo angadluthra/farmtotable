@@ -40,7 +40,7 @@ const RsvpForm = ({ onSubmit }: RsvpFormProps) => {
       
       <div className="space-y-4">
         <div className="space-y-2">
-          <label htmlFor="name" className="text-sm font-medium">
+          <label htmlFor="name" className="text-sm font-medium text-white/60">
             Name
           </label>
           <input
@@ -49,13 +49,13 @@ const RsvpForm = ({ onSubmit }: RsvpFormProps) => {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:border-white/20 focus:outline-none focus:ring-0 transition-colors"
+            className="w-full px-4 py-3 rounded-2xl border border-white/10 bg-white/5 text-white placeholder-white/30 focus:border-white/20 focus:outline-none focus:ring-0 transition-colors backdrop-blur-sm"
             required
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="email" className="text-sm font-medium">
+          <label htmlFor="email" className="text-sm font-medium text-white/60">
             Email
           </label>
           <input
@@ -64,13 +64,13 @@ const RsvpForm = ({ onSubmit }: RsvpFormProps) => {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:border-white/20 focus:outline-none focus:ring-0 transition-colors"
+            className="w-full px-4 py-3 rounded-2xl border border-white/10 bg-white/5 text-white placeholder-white/30 focus:border-white/20 focus:outline-none focus:ring-0 transition-colors backdrop-blur-sm"
             required
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="mealPreference" className="text-sm font-medium">
+          <label htmlFor="mealPreference" className="text-sm font-medium text-white/60">
             Meal Preference
           </label>
           <select
@@ -78,19 +78,22 @@ const RsvpForm = ({ onSubmit }: RsvpFormProps) => {
             name="mealPreference"
             value={formData.mealPreference}
             onChange={handleInputChange}
-            className="w-full px-4 py-2 rounded-lg border border-white/10 bg-white/5 text-white focus:border-white/20 focus:outline-none focus:ring-0 transition-colors"
+            className="w-full px-4 py-3 rounded-2xl border border-white/10 bg-white/5 text-white focus:border-white/20 focus:outline-none focus:ring-0 transition-colors backdrop-blur-sm appearance-none"
           >
-            <option value="">I'm okay with anything</option>
-            <option value="vegetarian">Vegetarian</option>
-            <option value="vegan">Vegan</option>
-            <option value="gluten-free">Gluten Free</option>
+            <option value="" className="bg-neutral-900">I'm okay with anything</option>
+            <option value="vegetarian" className="bg-neutral-900">Vegetarian</option>
+            <option value="vegan" className="bg-neutral-900">Vegan</option>
+            <option value="gluten-free" className="bg-neutral-900">Gluten Free</option>
           </select>
         </div>
       </div>
 
-      <Button type="submit" size="lg" className="w-full">
+      <button
+        type="submit"
+        className="w-full py-3 px-6 rounded-2xl bg-white/10 backdrop-blur-sm text-white font-medium hover:bg-white/20 transition-colors"
+      >
         Confirm RSVP
-      </Button>
+      </button>
     </form>
   );
 };
