@@ -59,7 +59,7 @@ const Index = () => {
       <div className="relative h-[50vh]">
         {/* Background Image with Gradient Overlay */}
         <div 
-          className="absolute inset-0 bg-cover bg-center -translate-y-24"
+          className="absolute inset-0 bg-cover bg-center -translate-y-36"
           style={{
             backgroundImage: 'url("public/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")'
           }}
