@@ -1,16 +1,31 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import RsvpForm from "@/components/RsvpForm";
+import { CheckCircle } from "lucide-react";
 
 const Index = () => {
   const [showRsvpForm, setShowRsvpForm] = useState(false);
   const [isAttending, setIsAttending] = useState(true);
+  const [hasRsvped, setHasRsvped] = useState(false);
+  const [rsvpName, setRsvpName] = useState<string>("");
+
+  useEffect(() => {
+    // Check local storage for RSVP status
+    const storedRsvp = localStorage.getItem('farmToTableRsvp');
+    if (storedRsvp) {
+      const rsvpData = JSON.parse(storedRsvp);
+      setHasRsvped(true);
+      setIsAttending(rsvpData.attending);
+      setRsvpName(rsvpData.name);
+    }
+  }, []);
+
   const eventDetails = {
     title: "Farm to Table",
     hosts: "Angad & Madhavi",
     tagline: "Serving to you straight from farm to table.",
-    date: new Date("2025-03-01T12:30:00"), // Saturday, March 1st 2025
+    date: new Date("2025-03-01T12:30:00"),
     location: {
       name: "Menon Farm, Ghata",
       address: "Ghata Village, Gurugram Haryana",
@@ -24,7 +39,10 @@ const Index = () => {
   };
 
   const handleRsvpSubmit = (formData: any) => {
-    console.log("RSVP Submitted:", formData);
+    // Store RSVP data in localStorage
+    localStorage.setItem('farmToTableRsvp', JSON.stringify(formData));
+    setHasRsvped(true);
+    setRsvpName(formData.name);
     setShowRsvpForm(false);
   };
 
@@ -42,7 +60,7 @@ const Index = () => {
       <div className="relative h-[50vh]">
         {/* Background Image with Gradient Overlay */}
         <div 
-          className="absolute inset-0 bg-cover bg-center -translate-y-24" // Increased translate to cut out more sky
+          className="absolute inset-0 bg-cover bg-center -translate-y-24"
           style={{
             backgroundImage: 'url("public/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")'
           }}
@@ -53,7 +71,13 @@ const Index = () => {
         {/* Content */}
         <div className="relative z-10 h-full flex flex-col">
           {/* Top Bar */}
-          <div className="p-4 flex justify-end items-center">
+          <div className="p-4 flex justify-between items-center">
+            {hasRsvped && (
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/10 text-green-400">
+                <CheckCircle size={16} />
+                <span className="text-sm font-medium">RSVP'd as {rsvpName}</span>
+              </div>
+            )}
             <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
