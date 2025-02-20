@@ -78,22 +78,26 @@ const Index = () => {
   };
 
   return (
-    <div className="fixed inset-0 overflow-auto bg-black text-white">
+    <div className="fixed inset-0 overflow-auto bg-black text-white overscroll-none">
       <div className="relative min-h-screen">
         {/* Background Image with Gradient Overlay */}
         <div 
-          className="fixed inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url("/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")`
-          }}
+          className="sticky top-0 h-screen -z-10 overflow-hidden"
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/60 to-black" />
+          <div 
+            className="absolute inset-0 bg-cover bg-center scale-[1.15] origin-top"
+            style={{
+              backgroundImage: `url("/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")`
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/60 to-black" />
+          </div>
         </div>
 
         {/* Content */}
-        <div className="relative z-10 min-h-screen flex flex-col">
+        <div className="relative z-10 min-h-screen flex flex-col pointer-events-none">
           {/* Top Bar */}
-          <div className="p-4 flex justify-end items-center">
+          <div className="p-4 flex justify-end items-center pointer-events-auto">
             <button 
               onClick={handleAddToCalendar}
               className="p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors"
@@ -103,7 +107,7 @@ const Index = () => {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 flex flex-col justify-end p-6 space-y-6">
+          <div className="flex-1 flex flex-col justify-end p-6 space-y-6 pointer-events-auto">
             <EventDetails {...eventDetails} />
             
             {/* Action Buttons */}
