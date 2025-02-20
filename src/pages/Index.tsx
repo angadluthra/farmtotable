@@ -214,44 +214,47 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Info Section */}
-      <div className="bg-black/30 backdrop-blur-md relative z-20">
-        <div className="container mx-auto max-w-lg p-6 space-y-6">
-          <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 backdrop-blur-sm">
-            <div className="flex items-center gap-4">
-              <svg className="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
-              </svg>
+      {/* Info Section - now with smoother transition */}
+      <div className="relative z-20">
+        <div className="absolute inset-x-0 -top-32 h-32 bg-gradient-to-b from-transparent to-black/30 backdrop-blur-[2px]" />
+        <div className="bg-black/30 backdrop-blur-xl">
+          <div className="container mx-auto max-w-lg p-6 space-y-6">
+            <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 backdrop-blur-md">
+              <div className="flex items-center gap-4">
+                <svg className="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
+                </svg>
+                <div>
+                  <div className="text-2xl font-light">{eventDetails.weather.temp}°</div>
+                  <div className="text-sm text-gray-400">H: {eventDetails.weather.high}° L: {eventDetails.weather.low}°</div>
+                </div>
+              </div>
+            </div>
+
+            <button 
+              onClick={handleLocationClick}
+              className="w-full p-4 rounded-xl bg-white/5 backdrop-blur-md text-left flex items-center justify-between group hover:bg-white/10 transition-colors"
+            >
               <div>
-                <div className="text-2xl font-light">{eventDetails.weather.temp}°</div>
-                <div className="text-sm text-gray-400">H: {eventDetails.weather.high}° L: {eventDetails.weather.low}°</div>
+                <div className="font-medium">{eventDetails.location.name}</div>
+                <div className="text-sm text-gray-400">{eventDetails.location.address}</div>
               </div>
-            </div>
-          </div>
+              <svg className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
 
-          <button 
-            onClick={handleLocationClick}
-            className="w-full p-4 rounded-xl bg-white/5 backdrop-blur-sm text-left flex items-center justify-between group hover:bg-white/10 transition-colors"
-          >
-            <div>
-              <div className="font-medium">{eventDetails.location.name}</div>
-              <div className="text-sm text-gray-400">{eventDetails.location.address}</div>
+            <div className="text-center text-sm text-gray-400 pt-2 space-y-6">
+              <div>Hosted by {eventDetails.hosts}</div>
+              {hasRsvped && (
+                <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${
+                  rsvpResponse ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'
+                }`}>
+                  {rsvpResponse ? <CheckCircle size={16} /> : <XCircle size={16} />}
+                  <span className="text-sm font-medium">RSVP'd as {rsvpName}</span>
+                </div>
+              )}
             </div>
-            <svg className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
-          <div className="text-center text-sm text-gray-400 pt-2 space-y-6">
-            <div>Hosted by {eventDetails.hosts}</div>
-            {hasRsvped && (
-              <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${
-                rsvpResponse ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'
-              }`}>
-                {rsvpResponse ? <CheckCircle size={16} /> : <XCircle size={16} />}
-                <span className="text-sm font-medium">RSVP'd as {rsvpName}</span>
-              </div>
-            )}
           </div>
         </div>
       </div>
