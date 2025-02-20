@@ -19,6 +19,7 @@ const EventDetails = ({ title, hosts, tagline, date, location }: EventDetailsPro
       <h1 className="text-5xl font-serif tracking-tight">{title}</h1>
       <div className="space-y-1 text-lg">
         <div>{format(date, "EEEE, d MMMM")}</div>
+        <div>{format(date, "h:mm a")}</div>
         <div>{location.name}</div>
       </div>
       <div className="pt-4 max-w-md mx-auto">

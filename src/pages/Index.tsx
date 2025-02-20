@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import RsvpForm from "@/components/RsvpForm";
@@ -23,7 +24,7 @@ const Index = () => {
   const eventDetails = {
     title: "Farm to Table",
     hosts: "Angad & Madhavi",
-    tagline: "Join us for an evening of fresh, locally-sourced cuisine in a beautiful farm setting. Experience the journey from farm to table while enjoying the company of fellow food enthusiasts.",
+    tagline: "Join us for an evening of fresh, locally-sourced cuisine in a beautiful farm setting. Experience the journey from farm to table.",
     date: new Date("2025-03-01T12:30:00"),
     location: {
       name: "Menon Farm, Ghata",
