@@ -22,11 +22,7 @@ const EventDetails = ({ title, hosts, tagline, date, location }: EventDetailsPro
         <div>{location.name}</div>
         <div>{location.address}</div>
       </div>
-      <div className="pt-6 space-y-2">
-        <div className="flex justify-center">
-          <div className="w-12 h-12 rounded-full bg-gray-500"></div>
-        </div>
-        <div className="text-lg font-medium">Hosted by {hosts}</div>
+      <div className="pt-4">
         <p className="text-gray-300">{tagline}</p>
       </div>
     </div>

@@ -10,7 +10,7 @@ const Index = () => {
     title: "Farm to Table",
     hosts: "Angad & Madhavi",
     tagline: "Serving to you straight from farm to table.",
-    date: new Date("2024-02-22T12:00:00"),
+    date: new Date("2024-03-01T12:30:00"),
     location: {
       name: "Menon Farm, Ghata",
       address: "Ghata Village, Gurugram Haryana",
@@ -35,7 +35,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <div className="relative h-[45vh]">
+      <div className="relative h-[40vh]">
         {/* Background Image with Gradient Overlay */}
         <div 
           className="absolute inset-0 bg-cover bg-center"
@@ -43,7 +43,7 @@ const Index = () => {
             backgroundImage: 'url("public/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")'
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-black" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black via-black/80 to-black" />
         </div>
 
         {/* Content */}
