@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import RsvpForm from "@/components/RsvpForm";
@@ -24,7 +23,7 @@ const Index = () => {
   const eventDetails = {
     title: "Farm to Table",
     hosts: "Angad & Madhavi",
-    tagline: "Serving to you straight from farm to table.",
+    tagline: "Join us for an evening of fresh, locally-sourced cuisine in a beautiful farm setting. Experience the journey from farm to table while enjoying the company of fellow food enthusiasts.",
     date: new Date("2025-03-01T12:30:00"),
     location: {
       name: "Menon Farm, Ghata",
@@ -135,6 +134,10 @@ const Index = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
+
+          <div className="text-center text-sm text-gray-400 pt-2">
+            Hosted by Madhavi & Angad
+          </div>
         </div>
       </div>
 
