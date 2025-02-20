@@ -1,46 +1,33 @@
 
 import React from "react";
 import { format } from "date-fns";
-import { MapPin, Clock } from "lucide-react";
-import Calendar from "./Calendar";
 
 interface EventDetailsProps {
   title: string;
+  hosts: string;
+  tagline: string;
   date: Date;
-  location: string;
-  description: string;
+  location: {
+    name: string;
+    address: string;
+  };
 }
 
-const EventDetails = ({ title, date, location, description }: EventDetailsProps) => {
+const EventDetails = ({ title, hosts, tagline, date, location }: EventDetailsProps) => {
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="space-y-2">
-        <p className="text-sm font-medium text-primary/60 tracking-wide uppercase">
-          You're Invited
-        </p>
-        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-          {title}
-        </h1>
+    <div className="space-y-4 text-center">
+      <h1 className="text-5xl font-serif tracking-tight">{title}</h1>
+      <div className="space-y-1 text-lg">
+        <div>{format(date, "EEE d MMMM, h:mm a")}</div>
+        <div>{location.name}</div>
+        <div>{location.address}</div>
       </div>
-
-      <div className="space-y-4">
-        <div className="flex items-center space-x-2 text-muted-foreground">
-          <Clock className="w-4 h-4" />
-          <time>{format(date, "EEEE, do MMMM, h:mm a")}</time>
+      <div className="pt-6 space-y-2">
+        <div className="flex justify-center">
+          <div className="w-12 h-12 rounded-full bg-gray-500"></div>
         </div>
-        
-        <div className="flex items-center space-x-2 text-muted-foreground">
-          <MapPin className="w-4 h-4" />
-          <span>{location}</span>
-        </div>
-      </div>
-
-      <p className="text-lg text-muted-foreground leading-relaxed">
-        {description}
-      </p>
-
-      <div className="pt-4">
-        <Calendar date={date} title={title} />
+        <div className="text-lg font-medium">Hosted by {hosts}</div>
+        <p className="text-gray-300">{tagline}</p>
       </div>
     </div>
   );
