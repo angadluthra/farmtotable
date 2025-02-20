@@ -1,8 +1,8 @@
-
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import RsvpForm from "@/components/RsvpForm";
-import { CheckCircle, XCircle } from "lucide-react";
+import { CheckCircle, XCircle, Calendar as CalendarIcon } from "lucide-react";
+import { formatForCalendar } from "@/utils/date";
 
 const Index = () => {
   const [showRsvpForm, setShowRsvpForm] = useState(false);
@@ -56,6 +56,30 @@ const Index = () => {
     window.open("https://maps.app.goo.gl/fuatyQqRmzr4cbjk6", "_blank");
   };
 
+  const handleAddToCalendar = () => {
+    const startDate = eventDetails.date;
+    const endDate = new Date(startDate.getTime() + 2 * 60 * 60 * 1000); // 2 hours duration
+    
+    const title = encodeURIComponent(eventDetails.title);
+    const location = encodeURIComponent(`${eventDetails.location.name}, ${eventDetails.location.address}`);
+    const details = encodeURIComponent(`Hosted by ${eventDetails.hosts}\n${eventDetails.tagline}`);
+    
+    // Format dates for calendar
+    const start = formatForCalendar(startDate);
+    const end = formatForCalendar(endDate);
+
+    // Check if the user is on iOS
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    
+    if (isIOS) {
+      // iOS calendar format
+      window.location.href = `webcal://calendar.google.com/calendar/ical/${title}/basic.ics?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`;
+    } else {
+      // Google Calendar for Android and other devices
+      window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`, '_blank');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="relative h-[50vh]">
@@ -73,10 +97,11 @@ const Index = () => {
         <div className="relative z-10 h-full flex flex-col">
           {/* Top Bar */}
           <div className="p-4 flex justify-end items-center">
-            <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
+            <button 
+              onClick={handleAddToCalendar}
+              className="p-2 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-colors"
+            >
+              <CalendarIcon className="w-6 h-6" />
             </button>
           </div>
 
@@ -150,6 +175,7 @@ const Index = () => {
                 <span className="text-sm font-medium">RSVP'd as {rsvpName}</span>
               </div>
             )}
+            <div className="mt-2">Hosted by {eventDetails.hosts}</div>
           </div>
         </div>
       </div>
