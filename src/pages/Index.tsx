@@ -9,9 +9,19 @@ const Index = () => {
   const [hasRsvped, setHasRsvped] = useState(false);
   const [rsvpName, setRsvpName] = useState<string>("");
   const [rsvpResponse, setRsvpResponse] = useState<boolean | null>(null);
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    const storedRsvp = localStorage.getItem('farmToTableRsvp');
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const storedRsvp = localStorage.getItem('farmToTableRsvp');
+    useEffect(() => {
     if (storedRsvp) {
       const rsvpData = JSON.parse(storedRsvp);
       setHasRsvped(true);
@@ -73,6 +83,8 @@ const Index = () => {
     }
   };
 
+  const parallaxValue = Math.min(scrollY * 0.15, 100); // Limit the parallax effect
+
   return (
     <div className="fixed inset-0 overflow-auto bg-black text-white overscroll-none">
       <div className="relative min-h-screen">
@@ -82,12 +94,21 @@ const Index = () => {
             className="absolute inset-0 bg-cover bg-center scale-110 transform-gpu will-change-transform"
             style={{
               backgroundImage: `url("/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")`,
-              transform: 'translateZ(0)',
+              transform: `translateZ(0) translateY(${parallaxValue}px) scale(${1.1 + (scrollY * 0.0002)})`,
               backgroundOrigin: 'border-box',
-              backgroundClip: 'border-box'
+              backgroundClip: 'border-box',
+              transition: 'transform 0.1s linear'
             }}
           />
-          <div className="fixed inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black pointer-events-none" />
+          <div 
+            className="fixed inset-0 pointer-events-none"
+            style={{
+              background: `linear-gradient(to bottom, 
+                rgba(0,0,0,${0.8 + (scrollY * 0.001)}), 
+                rgba(0,0,0,${0.4 + (scrollY * 0.001)}), 
+                rgba(0,0,0,1))`
+            }}
+          />
         </div>
 
         {/* Content */}
