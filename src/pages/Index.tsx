@@ -166,7 +166,8 @@ const Index = () => {
             </svg>
           </button>
 
-          <div className="text-center text-sm text-gray-400 pt-2">
+          <div className="text-center text-sm text-gray-400 pt-2 space-y-3">
+            <div>Hosted by {eventDetails.hosts}</div>
             {hasRsvped && (
               <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full ${
                 rsvpResponse ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'
@@ -175,7 +176,6 @@ const Index = () => {
                 <span className="text-sm font-medium">RSVP'd as {rsvpName}</span>
               </div>
             )}
-            <div className="mt-2">Hosted by {eventDetails.hosts}</div>
           </div>
         </div>
       </div>
