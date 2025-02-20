@@ -5,6 +5,7 @@ import RsvpForm from "@/components/RsvpForm";
 
 const Index = () => {
   const [showRsvpForm, setShowRsvpForm] = useState(false);
+  const [isAttending, setIsAttending] = useState(true);
   const eventDetails = {
     title: "Farm to Table",
     hosts: "Angad & Madhavi",
@@ -25,6 +26,11 @@ const Index = () => {
   const handleRsvpSubmit = (formData: any) => {
     console.log("RSVP Submitted:", formData);
     setShowRsvpForm(false);
+  };
+
+  const handleRsvpClick = (attending: boolean) => {
+    setIsAttending(attending);
+    setShowRsvpForm(true);
   };
 
   return (
@@ -58,13 +64,13 @@ const Index = () => {
             {/* Action Buttons */}
             <div className="grid grid-cols-2 gap-4 pb-8">
               <button 
-                onClick={() => setShowRsvpForm(true)}
+                onClick={() => handleRsvpClick(true)}
                 className="flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-white/10 backdrop-blur-sm text-white font-medium hover:bg-white/20 transition-colors"
               >
                 Going
               </button>
               <button 
-                onClick={() => handleRsvpSubmit({ attending: false })}
+                onClick={() => handleRsvpClick(false)}
                 className="flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-white/10 backdrop-blur-sm text-white font-medium hover:bg-white/20 transition-colors"
               >
                 Not Going
@@ -112,7 +118,7 @@ const Index = () => {
           }}
         >
           <div className="bg-neutral-900 rounded-t-3xl sm:rounded-3xl w-full sm:max-w-lg p-6 animate-in slide-in-from-bottom duration-300">
-            <RsvpForm onSubmit={handleRsvpSubmit} />
+            <RsvpForm onSubmit={handleRsvpSubmit} attending={isAttending} />
           </div>
         </div>
       )}

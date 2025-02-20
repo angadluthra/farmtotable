@@ -3,15 +3,18 @@ import React, { useState } from "react";
 
 interface RsvpFormProps {
   onSubmit: (data: FormData) => void;
+  attending: boolean;
 }
 
 interface FormData {
   name: string;
+  attending: boolean;
 }
 
-const RsvpForm = ({ onSubmit }: RsvpFormProps) => {
+const RsvpForm = ({ onSubmit, attending }: RsvpFormProps) => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
+    attending: attending,
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
