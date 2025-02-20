@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import RsvpForm from "@/components/RsvpForm";
@@ -10,9 +11,6 @@ const Index = () => {
   const [hasRsvped, setHasRsvped] = useState(false);
   const [rsvpName, setRsvpName] = useState<string>("");
   const [rsvpResponse, setRsvpResponse] = useState<boolean | null>(null);
-  
-  // Replace this with your Zapier webhook URL
-  const ZAPIER_WEBHOOK_URL = "";
 
   useEffect(() => {
     const storedRsvp = localStorage.getItem('farmToTableRsvp');
@@ -67,37 +65,33 @@ const Index = () => {
     const location = encodeURIComponent(`${eventDetails.location.name}, ${eventDetails.location.address}`);
     const details = encodeURIComponent(`Hosted by ${eventDetails.hosts}\n${eventDetails.tagline}`);
     
-    // Format dates for calendar
     const start = formatForCalendar(startDate);
     const end = formatForCalendar(endDate);
 
-    // Check if the user is on iOS
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     
     if (isIOS) {
-      // iOS calendar format
       window.location.href = `webcal://calendar.google.com/calendar/ical/${title}/basic.ics?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`;
     } else {
-      // Google Calendar for Android and other devices
       window.open(`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${start}/${end}&details=${details}&location=${location}`, '_blank');
     }
   };
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <div className="relative h-[50vh]">
+      <div className="relative min-h-screen">
         {/* Background Image with Gradient Overlay */}
         <div 
-          className="absolute inset-0 bg-cover bg-center -translate-y-36"
+          className="absolute inset-0 bg-cover bg-center"
           style={{
-            backgroundImage: 'url("public/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")'
+            backgroundImage: `url("/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")`
           }}
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/60 to-black" />
         </div>
 
         {/* Content */}
-        <div className="relative z-10 h-full flex flex-col">
+        <div className="relative z-10 min-h-screen flex flex-col">
           {/* Top Bar */}
           <div className="p-4 flex justify-end items-center">
             <button 
@@ -109,7 +103,7 @@ const Index = () => {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 flex flex-col justify-end p-6 space-y-6 pt-24">
+          <div className="flex-1 flex flex-col justify-end p-6 space-y-6">
             <EventDetails {...eventDetails} />
             
             {/* Action Buttons */}
@@ -141,8 +135,8 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Condensed Info Section */}
-      <div className="bg-black/95 backdrop-blur-lg">
+      {/* Info Section */}
+      <div className="bg-neutral-900/95 backdrop-blur-lg">
         <div className="container mx-auto max-w-lg p-6 space-y-6">
           <div className="flex items-center justify-between p-4 rounded-xl bg-white/5">
             <div className="flex items-center gap-4">
