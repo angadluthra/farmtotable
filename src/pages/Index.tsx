@@ -20,8 +20,7 @@ const Index = () => {
       condition: "Clear",
       high: 24,
       low: 12,
-    },
-    image: "/lovable-uploads/ba99d509-3e30-4fec-a66e-831ef21f8d38.png"
+    }
   };
 
   const handleRsvpSubmit = (formData: any) => {
@@ -36,36 +35,22 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       <div className="relative h-screen">
-        {/* Background Image */}
-        <div 
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `url(${eventDetails.image})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black" />
-        </div>
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-neutral-950 via-neutral-900 to-black" />
 
         {/* Content */}
         <div className="relative z-10 h-full flex flex-col">
           {/* Top Bar */}
           <div className="p-4 flex justify-between items-center">
-            <button className="p-2 rounded-full bg-black/30 backdrop-blur-sm">
+            <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
             <div className="flex gap-2">
-              <button className="p-2 rounded-full bg-black/30 backdrop-blur-sm">
+              <button className="p-2 rounded-full bg-white/10 backdrop-blur-sm">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-              </button>
-              <button className="p-2 rounded-full bg-black/30 backdrop-blur-sm">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                 </svg>
               </button>
             </div>
@@ -77,17 +62,17 @@ const Index = () => {
             
             {/* Action Buttons */}
             <div className="grid grid-cols-2 gap-4 pb-8">
-              <button className="flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-white/20 backdrop-blur-sm text-white font-medium">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-                </svg>
-                Send a Note
+              <button 
+                onClick={() => handleRsvpSubmit({ attending: true })}
+                className="flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-white/10 backdrop-blur-sm text-white font-medium hover:bg-white/20 transition-colors"
+              >
+                Going
               </button>
-              <button className="flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-white/20 backdrop-blur-sm text-white font-medium">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-                </svg>
-                Invite Guests
+              <button 
+                onClick={() => handleRsvpSubmit({ attending: false })}
+                className="flex items-center justify-center gap-2 py-3 px-6 rounded-full bg-white/10 backdrop-blur-sm text-white font-medium hover:bg-white/20 transition-colors"
+              >
+                Not Going
               </button>
             </div>
           </div>
@@ -115,15 +100,18 @@ const Index = () => {
         </div>
 
         <div className="space-y-4">
-          <h3 className="text-gray-400 text-lg font-medium">Directions</h3>
+          <h3 className="text-gray-400 text-lg font-medium">Location</h3>
           <div className="rounded-2xl overflow-hidden h-48 bg-gray-800">
             {/* Map placeholder - In a real app, integrate with a maps provider */}
             <div className="w-full h-full bg-gray-800" />
           </div>
           <div className="space-y-1">
-            <div className="text-xl font-medium">Ghata Village</div>
-            <div className="text-gray-400">Gurugram, Haryana, India</div>
+            <div className="text-xl font-medium">{eventDetails.location.name}</div>
+            <div className="text-gray-400">{eventDetails.location.address}</div>
           </div>
+          <button className="w-full py-3 px-6 rounded-full bg-white/10 backdrop-blur-sm text-white font-medium hover:bg-white/20 transition-colors">
+            Get Directions
+          </button>
         </div>
       </div>
     </div>
