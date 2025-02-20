@@ -9,6 +9,7 @@ const Index = () => {
   const [hasRsvped, setHasRsvped] = useState(false);
   const [rsvpName, setRsvpName] = useState<string>("");
   const [rsvpResponse, setRsvpResponse] = useState<boolean | null>(null);
+  const [showRsvpForm, setShowRsvpForm] = useState(false);
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
@@ -21,7 +22,7 @@ const Index = () => {
   }, []);
 
   const storedRsvp = localStorage.getItem('farmToTableRsvp');
-    useEffect(() => {
+  useEffect(() => {
     if (storedRsvp) {
       const rsvpData = JSON.parse(storedRsvp);
       setHasRsvped(true);
@@ -53,10 +54,14 @@ const Index = () => {
     setHasRsvped(true);
     setRsvpName(formData.name);
     setRsvpResponse(formData.attending);
+    setShowRsvpForm(false);
   };
 
   const handleRsvpClick = (attending: boolean) => {
-    setIsAttending(attending);
+    if (!hasRsvped) {
+      setIsAttending(attending);
+      setShowRsvpForm(true);
+    }
   };
 
   const handleLocationClick = () => {
@@ -83,7 +88,7 @@ const Index = () => {
     }
   };
 
-  const parallaxValue = Math.min(scrollY * 0.15, 100); // Limit the parallax effect
+  const parallaxValue = Math.min(scrollY * 0.15, 100);
 
   return (
     <div className="fixed inset-0 overflow-auto bg-black text-white overscroll-none">
@@ -148,20 +153,10 @@ const Index = () => {
                     : 'bg-white/10 text-white'
                 } backdrop-blur-sm font-medium hover:bg-white/20 transition-colors`}
               >
-                {rsvpResponse === false && <XCircle size={20} />}
+                {rsvpResponse === false && <XCircle size={16} />}
                 Not Going
               </button>
             </div>
-
-            {/* Inline RSVP Form */}
-            {!hasRsvped && (
-              <div className="space-y-6 bg-black/40 backdrop-blur-sm rounded-3xl p-6">
-                <RsvpForm 
-                  onSubmit={handleRsvpSubmit} 
-                  attending={isAttending}
-                />
-              </div>
-            )}
           </div>
         </div>
       </div>
@@ -207,6 +202,30 @@ const Index = () => {
           </div>
         </div>
       </div>
+
+      {/* RSVP Form Drawer */}
+      {showRsvpForm && (
+        <>
+          <div 
+            className="fixed inset-0 bg-black/40 backdrop-blur-sm z-50 transition-opacity"
+            onClick={() => setShowRsvpForm(false)}
+          />
+          <div 
+            className="fixed inset-x-0 bottom-0 z-50 transform transition-transform duration-300 ease-out"
+            style={{
+              transform: showRsvpForm ? 'translateY(0)' : 'translateY(100%)',
+            }}
+          >
+            <div className="bg-neutral-900 rounded-t-3xl w-full max-w-lg mx-auto p-6 space-y-6">
+              <div className="w-12 h-1 bg-white/20 rounded-full mx-auto mb-6" />
+              <RsvpForm 
+                onSubmit={handleRsvpSubmit} 
+                attending={isAttending}
+              />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };
