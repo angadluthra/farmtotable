@@ -2,10 +2,8 @@
 import React, { useState } from "react";
 import EventDetails from "@/components/EventDetails";
 import RsvpForm from "@/components/RsvpForm";
-import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
-  const { toast } = useToast();
   const [showRsvpForm, setShowRsvpForm] = useState(false);
   const eventDetails = {
     title: "Farm to Table",
@@ -27,16 +25,11 @@ const Index = () => {
   const handleRsvpSubmit = (formData: any) => {
     console.log("RSVP Submitted:", formData);
     setShowRsvpForm(false);
-    toast({
-      title: formData.attending ? "Thanks for RSVPing!" : "Sorry you can't make it",
-      description: formData.attending ? "We look forward to seeing you." : "Maybe next time!",
-      duration: 4000,
-    });
   };
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <div className="relative h-[45vh]"> {/* Reduced from 75vh to 45vh (40% reduction) */}
+      <div className="relative h-[45vh]">
         {/* Background Image with Gradient Overlay */}
         <div 
           className="absolute inset-0 bg-cover bg-center"
