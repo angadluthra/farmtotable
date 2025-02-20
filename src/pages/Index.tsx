@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import RsvpForm from "@/components/RsvpForm";
@@ -100,19 +99,17 @@ const Index = () => {
             className="absolute inset-0 bg-cover bg-bottom scale-110 transform-gpu will-change-transform"
             style={{
               backgroundImage: `url("/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")`,
-              transform: `translateZ(0) translateY(${parallaxValue}px) scale(${1.1 + (scrollY * 0.0002)})`,
-              backgroundOrigin: 'border-box',
-              backgroundClip: 'border-box',
+              transform: `translateY(${parallaxValue}px)`,
               transition: 'transform 0.1s linear'
             }}
           />
           <div 
-            className="fixed inset-0 pointer-events-none"
+            className="absolute inset-0 pointer-events-none"
             style={{
               background: `linear-gradient(to bottom, 
-                rgba(0,0,0,${0.8 + (scrollY * 0.001)}), 
-                rgba(0,0,0,${0.4 + (scrollY * 0.001)}), 
-                rgba(0,0,0,1))`
+                rgba(0,0,0,${0.6 + (scrollY * 0.001)}), 
+                rgba(0,0,0,${0.3 + (scrollY * 0.001)}), 
+                rgba(0,0,0,0.7))`
             }}
           />
         </div>
@@ -163,9 +160,9 @@ const Index = () => {
       </div>
 
       {/* Info Section */}
-      <div className="bg-black/95 backdrop-blur-lg relative z-20">
+      <div className="bg-black/30 backdrop-blur-md relative z-20">
         <div className="container mx-auto max-w-lg p-6 space-y-6">
-          <div className="flex items-center justify-between p-4 rounded-xl bg-white/5">
+          <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 backdrop-blur-sm">
             <div className="flex items-center gap-4">
               <svg className="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
@@ -179,7 +176,7 @@ const Index = () => {
 
           <button 
             onClick={handleLocationClick}
-            className="w-full p-4 rounded-xl bg-white/5 text-left flex items-center justify-between group hover:bg-white/10 transition-colors"
+            className="w-full p-4 rounded-xl bg-white/5 backdrop-blur-sm text-left flex items-center justify-between group hover:bg-white/10 transition-colors"
           >
             <div>
               <div className="font-medium">{eventDetails.location.name}</div>
