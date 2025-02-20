@@ -182,11 +182,11 @@ const Index = () => {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 flex flex-col justify-end pb-6 px-6 space-y-4">
+          <div className="flex-1 flex flex-col justify-end pb-8 px-6 space-y-4"> {/* Increased bottom padding */}
             <EventDetails {...eventDetails} />
             
             {/* Action Buttons */}
-            <div className="grid grid-cols-2 gap-4 mb-4"> {/* Increased bottom margin */}
+            <div className="grid grid-cols-2 gap-4 mb-8"> {/* Increased bottom margin */}
               <button 
                 onClick={() => handleRsvpClick(true)}
                 className={`flex items-center justify-center gap-2 py-3 px-6 rounded-full ${
@@ -215,7 +215,7 @@ const Index = () => {
       </div>
 
       {/* Info Section - with smoother transition */}
-      <div className="relative z-20 -mt-20"> {/* Adjusted negative margin to show buttons */}
+      <div className="relative z-20 -mt-16"> {/* Reduced negative margin */}
         <div className="h-16 bg-gradient-to-b from-transparent via-black/50 to-black/90" />
         <div className="bg-black/90 backdrop-blur-sm">
           <div className="container mx-auto max-w-lg p-6 space-y-4">
