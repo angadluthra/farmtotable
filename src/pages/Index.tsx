@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import TopBar from "@/components/TopBar";
@@ -145,84 +144,86 @@ const Index = () => {
   const parallaxValue = Math.min(scrollY * 0.3, 100);
 
   return (
-    <div className="fixed inset-0 overflow-hidden bg-black text-white overscroll-none">
-      <div className="relative min-h-screen">
-        {/* Background Image with Parallax */}
-        <div className="fixed inset-0 -z-10">
-          <div 
-            className="absolute inset-0 bg-cover bg-center transform-gpu will-change-transform"
-            style={{
-              backgroundImage: `url("/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")`,
-              transform: `translateY(${parallaxValue}px)`,
-              transition: 'transform 0.1s linear'
-            }}
-          />
-          <div 
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: `linear-gradient(to bottom, 
-                rgba(0,0,0,${0.4 + (scrollY * 0.001)}), 
-                rgba(0,0,0,${0.2 + (scrollY * 0.001)}), 
-                rgba(0,0,0,0.95))`
-            }}
-          />
-        </div>
+    <div className="fixed inset-0 bg-black text-white overscroll-none">
+      <div className="absolute inset-0 overflow-auto">
+        <div className="relative min-h-screen">
+          {/* Background Image with Parallax */}
+          <div className="fixed inset-0 -z-10">
+            <div 
+              className="absolute inset-0 bg-cover bg-center transform-gpu will-change-transform"
+              style={{
+                backgroundImage: `url("/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")`,
+                transform: `translateY(${parallaxValue}px)`,
+                transition: 'transform 0.1s linear'
+              }}
+            />
+            <div 
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: `linear-gradient(to bottom, 
+                  rgba(0,0,0,${0.4 + (scrollY * 0.001)}), 
+                  rgba(0,0,0,${0.2 + (scrollY * 0.001)}), 
+                  rgba(0,0,0,0.95))`
+              }}
+            />
+          </div>
 
-        {/* Content */}
-        <div className="relative z-10 min-h-screen flex flex-col">
-          <TopBar 
-            hasRsvped={hasRsvped}
-            rsvpResponse={rsvpResponse}
-            rsvpName={rsvpName}
-            onCalendarClick={handleAddToCalendar}
-          />
+          {/* Content */}
+          <div className="relative z-10 min-h-screen flex flex-col">
+            <TopBar 
+              hasRsvped={hasRsvped}
+              rsvpResponse={rsvpResponse}
+              rsvpName={rsvpName}
+              onCalendarClick={handleAddToCalendar}
+            />
 
-          {/* Main Content */}
-          <div className="flex-1 flex flex-col justify-end pb-12 px-6 space-y-4">
-            <div className="space-y-4">
-              <EventDetails {...eventDetails} />
-              <ActionButtons 
-                rsvpResponse={rsvpResponse}
-                onGoingClick={() => handleRsvpClick(true)}
-                onNotGoingClick={() => handleRsvpClick(false)}
-              />
+            {/* Main Content */}
+            <div className="flex-1 flex flex-col justify-end pb-12 px-6 space-y-4">
+              <div className="space-y-4">
+                <EventDetails {...eventDetails} />
+                <ActionButtons 
+                  rsvpResponse={rsvpResponse}
+                  onGoingClick={() => handleRsvpClick(true)}
+                  onNotGoingClick={() => handleRsvpClick(false)}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Info Section */}
-      <div className="relative z-20 -mt-8">
-        <div className="h-24 bg-gradient-to-b from-transparent to-black" />
-        <div className="bg-black">
-          <div className="container mx-auto max-w-lg p-6 space-y-4">
-            <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 backdrop-blur-sm">
-              <div className="flex items-center gap-4">
-                <svg className="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
-                </svg>
-                <div>
-                  <div className="text-2xl font-light">{eventDetails.weather.temp}°</div>
-                  <div className="text-sm text-gray-400">H: {eventDetails.weather.high}° L: {eventDetails.weather.low}°</div>
+        {/* Info Section */}
+        <div className="relative z-20 -mt-8">
+          <div className="h-24 bg-gradient-to-b from-transparent to-black" />
+          <div className="bg-black">
+            <div className="container mx-auto max-w-lg p-6 space-y-4">
+              <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 backdrop-blur-sm">
+                <div className="flex items-center gap-4">
+                  <svg className="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
+                  </svg>
+                  <div>
+                    <div className="text-2xl font-light">{eventDetails.weather.temp}°</div>
+                    <div className="text-sm text-gray-400">H: {eventDetails.weather.high}° L: {eventDetails.weather.low}°</div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <button 
-              onClick={handleLocationClick}
-              className="w-full p-4 rounded-xl bg-white/5 backdrop-blur-sm text-left flex items-center justify-between group hover:bg-white/10 transition-colors"
-            >
-              <div>
-                <div className="font-medium">{eventDetails.location.name}</div>
-                <div className="text-sm text-gray-400">{eventDetails.location.address}</div>
+              <button 
+                onClick={handleLocationClick}
+                className="w-full p-4 rounded-xl bg-white/5 backdrop-blur-sm text-left flex items-center justify-between group hover:bg-white/10 transition-colors"
+              >
+                <div>
+                  <div className="font-medium">{eventDetails.location.name}</div>
+                  <div className="text-sm text-gray-400">{eventDetails.location.address}</div>
+                </div>
+                <svg className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+
+              <div className="text-center text-sm text-gray-400 pt-2">
+                <div>Hosted by {eventDetails.hosts}</div>
               </div>
-              <svg className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-
-            <div className="text-center text-sm text-gray-400 pt-2">
-              <div>Hosted by {eventDetails.hosts}</div>
             </div>
           </div>
         </div>
