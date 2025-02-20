@@ -12,7 +12,6 @@ const Index = () => {
   const [rsvpResponse, setRsvpResponse] = useState<boolean | null>(null);
 
   useEffect(() => {
-    // Check local storage for RSVP status
     const storedRsvp = localStorage.getItem('farmToTableRsvp');
     if (storedRsvp) {
       const rsvpData = JSON.parse(storedRsvp);
@@ -151,7 +150,7 @@ const Index = () => {
           </button>
 
           <div className="text-center text-sm text-gray-400 pt-2">
-            Hosted by Madhavi & Angad
+            Hosted by {eventDetails.hosts}
           </div>
         </div>
       </div>
