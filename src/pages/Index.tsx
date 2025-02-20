@@ -197,7 +197,6 @@ const Index = () => {
             <RsvpForm 
               onSubmit={handleRsvpSubmit} 
               attending={isAttending}
-              webhookUrl={ZAPIER_WEBHOOK_URL} 
             />
           </div>
         </div>

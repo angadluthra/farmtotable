@@ -6,7 +6,6 @@ import { supabase } from "@/integrations/supabase/client";
 interface RsvpFormProps {
   onSubmit: (data: FormData) => void;
   attending: boolean;
-  webhookUrl?: string;
 }
 
 interface FormData {
@@ -15,7 +14,7 @@ interface FormData {
   attending: boolean;
 }
 
-const RsvpForm = ({ onSubmit, attending, webhookUrl }: RsvpFormProps) => {
+const RsvpForm = ({ onSubmit, attending }: RsvpFormProps) => {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     mealPreference: "",
@@ -39,7 +38,6 @@ const RsvpForm = ({ onSubmit, attending, webhookUrl }: RsvpFormProps) => {
     }
 
     try {
-      // Store in Supabase
       const { error } = await supabase
         .from('rsvps')
         .insert([{
@@ -49,28 +47,6 @@ const RsvpForm = ({ onSubmit, attending, webhookUrl }: RsvpFormProps) => {
         }]);
 
       if (error) throw error;
-
-      // If webhookUrl is provided, trigger Zapier
-      if (webhookUrl) {
-        try {
-          await fetch(webhookUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            mode: 'no-cors',
-            body: JSON.stringify({
-              name: formData.name,
-              meal_preference: formData.mealPreference,
-              attending: formData.attending,
-              submitted_at: new Date().toISOString(),
-            }),
-          });
-        } catch (zapError) {
-          console.error('Error triggering Zapier webhook:', zapError);
-        }
-      }
-
       onSubmit(formData);
     } catch (error) {
       console.error('Error submitting RSVP:', error);
