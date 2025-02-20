@@ -15,7 +15,7 @@ const ActionButtons = ({ rsvpResponse, onGoingClick, onNotGoingClick }: ActionBu
         onClick={onGoingClick}
         className={`flex items-center justify-center gap-2 py-3 px-6 rounded-full ${
           rsvpResponse === true 
-            ? 'bg-white text-green-600' 
+            ? 'bg-white/10 text-green-600' 
             : 'bg-white/10 text-white'
         } backdrop-blur-sm font-medium hover:bg-opacity-90 transition-colors`}
       >
@@ -26,7 +26,7 @@ const ActionButtons = ({ rsvpResponse, onGoingClick, onNotGoingClick }: ActionBu
         onClick={onNotGoingClick}
         className={`flex items-center justify-center gap-2 py-3 px-6 rounded-full ${
           rsvpResponse === false 
-            ? 'bg-white text-orange-600' 
+            ? 'bg-white/10 text-orange-600' 
             : 'bg-white/10 text-white'
         } backdrop-blur-sm font-medium hover:bg-opacity-90 transition-colors`}
       >
