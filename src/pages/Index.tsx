@@ -146,8 +146,8 @@ const Index = () => {
   const parallaxValue = Math.min(scrollY * 0.3, 100);
 
   return (
-    <div className="fixed inset-0 overflow-auto bg-black text-white overscroll-none">
-      <div className="relative min-h-[100vh]">
+    <div className="fixed inset-0 overflow-hidden bg-black text-white overscroll-none">
+      <div className="relative min-h-screen">
         {/* Background Image with Parallax */}
         <div className="fixed inset-0 -z-10">
           <div 
@@ -176,7 +176,7 @@ const Index = () => {
             {/* RSVP Status in Top Left */}
             {hasRsvped && (
               <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full ${
-                rsvpResponse ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'
+                rsvpResponse ? 'bg-white text-green-600' : 'bg-white text-orange-600'
               }`}>
                 {rsvpResponse ? <CheckCircle size={16} /> : <XCircle size={16} />}
                 <span className="text-sm font-medium">RSVP'd as {rsvpName}</span>
@@ -203,7 +203,7 @@ const Index = () => {
                   onClick={() => handleRsvpClick(true)}
                   className={`flex items-center justify-center gap-2 py-3 px-6 rounded-full ${
                     rsvpResponse === true 
-                      ? 'bg-green-500/20 text-green-400' 
+                      ? 'bg-white text-green-600' 
                       : 'bg-white/10 text-white'
                   } backdrop-blur-sm font-medium hover:bg-opacity-90 transition-colors`}
                 >
@@ -214,7 +214,7 @@ const Index = () => {
                   onClick={() => handleRsvpClick(false)}
                   className={`flex items-center justify-center gap-2 py-3 px-6 rounded-full ${
                     rsvpResponse === false 
-                      ? 'bg-yellow-500/20 text-yellow-400' 
+                      ? 'bg-white text-orange-600' 
                       : 'bg-white/10 text-white'
                   } backdrop-blur-sm font-medium hover:bg-opacity-90 transition-colors`}
                 >
