@@ -143,18 +143,19 @@ const Index = () => {
     }
   };
 
-  const parallaxValue = Math.min(scrollY * 0.15, 100);
+  const parallaxValue = Math.min(scrollY * 0.5, 200); // Increased parallax effect
 
   return (
     <div className="fixed inset-0 overflow-auto bg-black text-white overscroll-none">
-      <div className="relative min-h-screen">
+      <div className="relative min-h-[150vh]"> {/* Increased height for parallax */}
         {/* Background Image with Gradient Overlay */}
         <div className="fixed inset-0 -z-10">
           <div 
-            className="absolute inset-0 bg-cover bg-bottom scale-110 transform-gpu will-change-transform"
+            className="absolute inset-0 bg-cover bg-center scale-110 transform-gpu will-change-transform"
             style={{
               backgroundImage: `url("/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")`,
-              transform: `translateY(${parallaxValue}px)`,
+              transform: `translateY(${parallaxValue}px) scale(1.1)`,
+              transformOrigin: 'center',
               transition: 'transform 0.1s linear'
             }}
           />
@@ -162,9 +163,9 @@ const Index = () => {
             className="absolute inset-0 pointer-events-none"
             style={{
               background: `linear-gradient(to bottom, 
-                rgba(0,0,0,${0.6 + (scrollY * 0.001)}), 
-                rgba(0,0,0,${0.3 + (scrollY * 0.001)}), 
-                rgba(0,0,0,0.7))`
+                rgba(0,0,0,${0.4 + (scrollY * 0.001)}), 
+                rgba(0,0,0,${0.2 + (scrollY * 0.001)}), 
+                rgba(0,0,0,0.95))`
             }}
           />
         </div>
@@ -214,12 +215,12 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Info Section - now with smoother transition */}
-      <div className="relative z-20">
-        <div className="absolute inset-x-0 -top-32 h-32 bg-gradient-to-b from-transparent to-black/30 backdrop-blur-[2px]" />
-        <div className="bg-black/30 backdrop-blur-xl">
+      {/* Info Section - with smoother transition */}
+      <div className="relative z-20 -mt-32"> {/* Pulls the section up */}
+        <div className="h-32 bg-gradient-to-b from-transparent via-black/50 to-black/90" />
+        <div className="bg-black/90 backdrop-blur-sm">
           <div className="container mx-auto max-w-lg p-6 space-y-6">
-            <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 backdrop-blur-md">
+            <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 backdrop-blur-sm">
               <div className="flex items-center gap-4">
                 <svg className="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
@@ -233,7 +234,7 @@ const Index = () => {
 
             <button 
               onClick={handleLocationClick}
-              className="w-full p-4 rounded-xl bg-white/5 backdrop-blur-md text-left flex items-center justify-between group hover:bg-white/10 transition-colors"
+              className="w-full p-4 rounded-xl bg-white/5 backdrop-blur-sm text-left flex items-center justify-between group hover:bg-white/10 transition-colors"
             >
               <div>
                 <div className="font-medium">{eventDetails.location.name}</div>
