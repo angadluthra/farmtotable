@@ -36,7 +36,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-black text-white">
-      <div className="relative h-[75vh]"> {/* Reduced from h-screen to h-[75vh] */}
+      <div className="relative h-[45vh]"> {/* Reduced from 75vh to 45vh (40% reduction) */}
         {/* Background Image with Gradient Overlay */}
         <div 
           className="absolute inset-0 bg-cover bg-center"
@@ -110,8 +110,15 @@ const Index = () => {
 
       {/* RSVP Form Modal */}
       {showRsvpForm && (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-neutral-900 rounded-3xl w-full max-w-lg p-6">
+        <div 
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowRsvpForm(false);
+            }
+          }}
+        >
+          <div className="bg-neutral-900 rounded-t-3xl sm:rounded-3xl w-full sm:max-w-lg p-6 animate-in slide-in-from-bottom duration-300">
             <RsvpForm onSubmit={handleRsvpSubmit} />
           </div>
         </div>
