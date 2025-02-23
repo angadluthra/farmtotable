@@ -80,7 +80,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
     }, 100);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -91,11 +91,19 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
     }
 
     try {
-      onSubmit(formData);
+      // Scroll to top before submitting
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+
+      // Add a small delay to let the scroll animation complete
+      setTimeout(() => {
+        onSubmit(formData);
+      }, 300);
     } catch (error) {
       console.error('Error submitting RSVP:', error);
       alert('There was an error submitting your RSVP. Please try again.');
-    } finally {
       setIsSubmitting(false);
     }
   };
