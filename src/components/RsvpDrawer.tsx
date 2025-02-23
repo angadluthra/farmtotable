@@ -24,7 +24,7 @@ const RsvpDrawer = ({ show, onClose, onSubmit, isAttending, hasRsvped, rsvpName 
       <div 
         className="fixed inset-0 z-50 overflow-hidden flex items-center justify-center"
       >
-        <div className="relative w-full sm:w-[28rem] h-full sm:h-auto flex flex-col sm:my-8">
+        <div className="relative w-full sm:w-[28rem] h-full sm:h-auto sm:max-h-[90vh] flex flex-col sm:my-8">
           <div className="w-full h-full sm:h-auto sm:max-h-[90vh] sm:rounded-2xl bg-neutral-900 overflow-hidden">
             <div className="relative h-full flex flex-col">
               <div className="absolute top-6 right-6 z-10">
@@ -37,8 +37,8 @@ const RsvpDrawer = ({ show, onClose, onSubmit, isAttending, hasRsvped, rsvpName 
                 </button>
               </div>
               <div className="sm:hidden w-12 h-1 bg-white/20 rounded-full mx-auto my-6" />
-              <div className="flex-1 overflow-y-auto overscroll-contain px-6 pb-6 pt-6 sm:pt-12 scrollbar-none no-scrollbar">
-                <div className="flex flex-col h-full">
+              <div className="flex-1 overflow-y-auto px-6 pb-6 pt-6 sm:pt-12 scrollbar-none">
+                <div className="flex flex-col min-h-full">
                   <RsvpForm 
                     onSubmit={onSubmit} 
                     attending={isAttending}
