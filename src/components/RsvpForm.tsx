@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -64,13 +65,21 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
 
   const handleMealChange = (value: string) => {
     setFormData((prev) => ({ ...prev, mealPreference: value }));
-    // Delayed smooth scroll to allow manual scrolling
-    setTimeout(() => {
-      submitButtonRef.current?.scrollIntoView({ 
+    
+    // Use requestAnimationFrame to ensure smooth scrolling
+    requestAnimationFrame(() => {
+      // First, ensure the drawer is scrollable
+      const drawer = document.querySelector('[role="dialog"]');
+      if (drawer) {
+        drawer.setAttribute('style', 'overflow-y: auto; -webkit-overflow-scrolling: touch;');
+      }
+      
+      // Then scroll to the button
+      submitButtonRef.current?.scrollIntoView({
         behavior: 'smooth',
-        block: 'nearest'
+        block: 'end'
       });
-    }, 100);
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -94,7 +103,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
+    <form onSubmit={handleSubmit} className="space-y-8 overflow-y-auto">
       <div className="space-y-2">
         {attending ? (
           <>
