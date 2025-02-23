@@ -104,7 +104,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
     <form 
       ref={formRef}
       onSubmit={handleSubmit} 
-      className="flex flex-col h-full overflow-y-auto"
+      className="flex flex-col h-full overflow-y-auto scrollbar-none"
     >
       <div className="flex-1 space-y-8">
         <div className="space-y-2">
