@@ -21,19 +21,24 @@ interface FormData {
 
 const mealOptions = [
   {
-    id: "vegetarian",
-    title: "Farm Fresh Vegetarian",
-    description: "Seasonal vegetables and herbs from our local garden"
+    id: "chicken",
+    title: "12-Hour Thyme Roasted Chicken",
+    description: "Slow-cooked, served with creamy mashed potatoes and wild mushroom jus"
   },
   {
-    id: "vegan",
-    title: "Plant-Based Delight",
-    description: "Creative dishes crafted entirely from garden-fresh produce"
+    id: "tagliatelle",
+    title: "Tagliatelle with Caramelized Onions & Mushrooms",
+    description: "Velvety pasta with golden onions, wild mushrooms, and truffle essence"
   },
   {
-    id: "gluten-free",
-    title: "Gluten-Free Garden",
-    description: "Naturally gluten-free ingredients with maximum flavor"
+    id: "arrabbiata",
+    title: "Fiery Roasted Red Pepper Arrabbiata",
+    description: "Spicy rigatoni with fire-roasted peppers, garlic, basil, and olive oil"
+  },
+  {
+    id: "salmon",
+    title: "Classic Grilled Salmon",
+    description: "Citrus-infused, served with dill, cherry tomatoes, and rosemary baby potatoes"
   }
 ];
 
@@ -83,14 +88,15 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 animate-in slide-in-from-bottom duration-300">
-      <h2 className="text-2xl font-semibold tracking-tight">
-        {initialData ? "Update your RSVP details" : "Please provide your details"}
-      </h2>
+      <div>
+        <h2 className="text-2xl font-semibold tracking-tight">Your Seat at the Table</h2>
+        <p className="text-white/60 mt-1">Let us know your meal preference for the evening</p>
+      </div>
       
-      <div className="space-y-4">
+      <div className="space-y-6">
         <div className="space-y-2">
           <label htmlFor="name" className="text-sm font-medium text-white/60">
-            Please add your Name
+            Please add your name
           </label>
           <input
             type="text"
@@ -107,8 +113,8 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
         {attending && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-sm font-medium text-white/60">Your Meal Preference</h3>
-              <p className="text-sm text-white/40 mb-4">Please select your choice of mains for the evening</p>
+              <h3 className="text-lg font-medium">What's on Your Plate?</h3>
+              <p className="text-white/60 text-sm mt-1">Choose your preferred dish for the evening</p>
             </div>
             
             <RadioGroup
@@ -119,12 +125,12 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
               {mealOptions.map((option) => (
                 <div
                   key={option.id}
-                  className="flex items-center space-x-3 rounded-lg border border-white/10 p-4 hover:bg-white/5 transition-colors"
+                  className="flex items-start space-x-3 rounded-lg border border-white/10 p-4 hover:bg-white/5 transition-colors"
                 >
                   <RadioGroupItem
                     value={option.id}
                     id={option.id}
-                    className="border-white/20 text-white"
+                    className="border-white/20 text-white mt-1"
                   />
                   <Label
                     htmlFor={option.id}
