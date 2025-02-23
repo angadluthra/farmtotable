@@ -66,8 +66,8 @@ const Index = () => {
 
   const eventDetails = {
     title: "Farm to Table",
-    hosts: "Angad & Madhavi",
-    tagline: "Fresh flavors, seasonal ingredients, and a delicious meal to share.",
+    hosts: "Madhavi & Angad",
+    tagline: "Join us for a relaxed afternoon enjoying fresh ingredients brought together in simple, delicious flavors.",
     date: new Date("2025-03-01T12:30:00"),
     location: {
       name: "Menon Farm, Ghata",

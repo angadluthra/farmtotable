@@ -22,23 +22,23 @@ interface FormData {
 const mealOptions = [
   {
     id: "chicken",
-    title: "12-Hour Thyme Roasted Chicken",
-    description: "Slow-cooked, served with creamy mashed potatoes and wild mushroom jus"
+    title: "Thyme Roasted Chicken",
+    description: "Slow-roasted for 12 hours, served with creamy mashed potatoes and wild mushroom jus"
   },
   {
     id: "tagliatelle",
     title: "Tagliatelle with Caramelized Onions & Mushrooms",
-    description: "Velvety pasta with golden onions, wild mushrooms, and truffle essence"
+    description: "A take on a classic, with slow-cooked onions, sautéed mushrooms, and a hint of truffle"
   },
   {
     id: "arrabbiata",
     title: "Fiery Roasted Red Pepper Arrabbiata",
-    description: "Spicy rigatoni with fire-roasted peppers, garlic, basil, and olive oil"
+    description: "A bold, spicy rigatoni with fire-roasted peppers, garlic, and fresh basil"
   },
   {
     id: "salmon",
-    title: "Classic Grilled Salmon",
-    description: "Citrus-infused, served with dill, cherry tomatoes, and rosemary baby potatoes"
+    title: "Citrus-Infused Grilled Salmon",
+    description: "Served with roasted baby potatoes, asparagus, and a dill yogurt sauce"
   }
 ];
 
