@@ -182,7 +182,7 @@ const Index = () => {
           msOverflowStyle: 'none'
         }}
       >
-        <div className="relative h-screen flex flex-col">
+        <div className="relative min-h-screen md:h-screen">
           {/* Background Image with Parallax */}
           <div 
             className="fixed inset-0 -z-10 pointer-events-none"
@@ -208,7 +208,7 @@ const Index = () => {
           </div>
 
           {/* Content */}
-          <div className="relative z-10 h-full flex flex-col">
+          <div className="relative z-10 min-h-screen md:h-full flex flex-col">
             <TopBar 
               hasRsvped={hasRsvped}
               rsvpResponse={rsvpResponse}
@@ -217,8 +217,8 @@ const Index = () => {
             />
 
             {/* Main Content */}
-            <div className="flex-1 flex flex-col">
-              <div className="flex-1 flex flex-col justify-center pb-4 px-6">
+            <div className="flex-1 flex flex-col md:justify-between">
+              <div className="flex-1 flex flex-col justify-end md:justify-center pb-6 px-6">
                 <div className="space-y-3">
                   <EventDetails {...eventDetails} />
                   <ActionButtons 
