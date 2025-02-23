@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import TopBar from "@/components/TopBar";
@@ -182,7 +181,7 @@ const Index = () => {
           msOverflowStyle: 'none'
         }}
       >
-        <div className="relative min-h-screen md:h-screen">
+        <div className="relative min-h-screen">
           {/* Background Image with Parallax */}
           <div 
             className="fixed inset-0 -z-10 pointer-events-none"
@@ -208,7 +207,7 @@ const Index = () => {
           </div>
 
           {/* Content */}
-          <div className="relative z-10 min-h-screen md:h-full flex flex-col">
+          <div className="relative z-10 min-h-screen flex flex-col">
             <TopBar 
               hasRsvped={hasRsvped}
               rsvpResponse={rsvpResponse}
@@ -217,27 +216,25 @@ const Index = () => {
             />
 
             {/* Main Content */}
-            <div className="flex-1 flex flex-col md:justify-between">
-              <div className="flex-1 flex flex-col justify-end md:justify-center pb-6 px-6">
-                <div className="space-y-3">
-                  <EventDetails {...eventDetails} />
-                  <ActionButtons 
-                    rsvpResponse={rsvpResponse}
-                    onGoingClick={() => handleRsvpClick(true)}
-                    onNotGoingClick={() => handleRsvpClick(false)}
-                  />
-                </div>
+            <div className="flex-1 flex flex-col justify-end pb-6 px-6 space-y-4">
+              <div className="space-y-3">
+                <EventDetails {...eventDetails} />
+                <ActionButtons 
+                  rsvpResponse={rsvpResponse}
+                  onGoingClick={() => handleRsvpClick(true)}
+                  onNotGoingClick={() => handleRsvpClick(false)}
+                />
               </div>
-
-              <EventInfo 
-                weather={eventDetails.weather}
-                location={eventDetails.location}
-                hosts={eventDetails.hosts}
-                onLocationClick={handleLocationClick}
-              />
             </div>
           </div>
         </div>
+
+        <EventInfo 
+          weather={eventDetails.weather}
+          location={eventDetails.location}
+          hosts={eventDetails.hosts}
+          onLocationClick={handleLocationClick}
+        />
       </div>
 
       <RsvpDrawer 
