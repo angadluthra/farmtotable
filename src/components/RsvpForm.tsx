@@ -66,6 +66,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
       ([entry]) => {
         if (!entry.isIntersecting) {
           submitButtonRef.current?.scrollIntoView({ behavior: 'smooth' });
+          setShouldCheckScroll(false); // Reset after scrolling
         }
       },
       {
@@ -120,7 +121,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
           </>
         ) : (
           <>
-            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">We'll Miss You</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">We'll Miss You at the Table</h2>
             <p className="text-white/60 text-base">Hope to see you another time</p>
           </>
         )}
