@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import EventDetails from "@/components/EventDetails";
 import TopBar from "@/components/TopBar";
 import ActionButtons from "@/components/ActionButtons";
@@ -16,6 +16,7 @@ const Index = () => {
   const [showRsvpForm, setShowRsvpForm] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [currentRsvpId, setCurrentRsvpId] = useState<string | null>(null);
+  const mainScrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -126,11 +127,13 @@ const Index = () => {
       setCurrentRsvpId(rsvpId);
       setShowRsvpForm(false);
 
-      // Scroll to top after form submission
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      // Scroll the main container to top after form submission
+      if (mainScrollRef.current) {
+        mainScrollRef.current.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      }
     } catch (error) {
       console.error('Error saving RSVP:', error);
     }
@@ -182,6 +185,7 @@ const Index = () => {
   return (
     <div className="fixed inset-0 bg-black text-white overscroll-none">
       <div 
+        ref={mainScrollRef}
         className="absolute inset-0 overflow-auto scrollbar-none" 
         style={{ 
           scrollbarWidth: 'none', 
