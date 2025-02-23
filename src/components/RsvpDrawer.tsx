@@ -24,7 +24,7 @@ const RsvpDrawer = ({ show, onClose, onSubmit, isAttending, hasRsvped, rsvpName 
       <div 
         className="fixed inset-0 z-50 overflow-hidden flex items-center justify-center"
       >
-        <div className="relative w-full sm:w-[28rem] h-full sm:h-auto max-h-[100dvh] flex flex-col">
+        <div className="relative w-full sm:w-[28rem] h-full sm:h-[min(40rem,90vh)] max-h-[100dvh] flex flex-col">
           <div className="w-full h-full sm:rounded-2xl bg-neutral-900 overflow-hidden">
             <div className="relative h-full flex flex-col">
               <div className="absolute top-6 right-6 z-10">
