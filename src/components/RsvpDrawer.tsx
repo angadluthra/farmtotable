@@ -22,11 +22,11 @@ const RsvpDrawer = ({ show, onClose, onSubmit, isAttending, hasRsvped, rsvpName 
         onClick={onClose}
       />
       <div 
-        className="fixed inset-0 z-50 overflow-y-auto"
+        className="fixed inset-0 z-50 overflow-hidden flex items-center justify-center"
       >
-        <div className="min-h-full">
-          <div className="w-full h-full bg-neutral-900">
-            <div className="p-6">
+        <div className="relative w-full sm:w-[28rem] max-h-[100dvh] flex flex-col">
+          <div className="w-full bg-neutral-900 overflow-y-auto overscroll-contain">
+            <div className="p-6 relative">
               <button
                 onClick={onClose}
                 className="absolute top-6 right-6 text-white/60 hover:text-white transition-colors"
@@ -34,7 +34,7 @@ const RsvpDrawer = ({ show, onClose, onSubmit, isAttending, hasRsvped, rsvpName 
               >
                 <X size={24} />
               </button>
-              <div className="w-12 h-1 bg-white/20 rounded-full mx-auto mb-6" />
+              <div className="sm:hidden w-12 h-1 bg-white/20 rounded-full mx-auto mb-6" />
               <RsvpForm 
                 onSubmit={onSubmit} 
                 attending={isAttending}

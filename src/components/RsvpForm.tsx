@@ -87,7 +87,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8 animate-in slide-in-from-bottom duration-300">
+    <form onSubmit={handleSubmit} className="space-y-8">
       <div className="space-y-2">
         <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">Your Seat at the Table</h2>
         <p className="text-white/60 text-base">Let us know your meal preference for the evening</p>
