@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -48,6 +49,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
     attending: attending,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [shouldCheckScroll, setShouldCheckScroll] = useState(false);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   
   useEffect(() => {
@@ -58,6 +60,8 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
   }, [attending]);
 
   useEffect(() => {
+    if (!shouldCheckScroll) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) {
@@ -74,7 +78,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [shouldCheckScroll]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -83,6 +87,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
 
   const handleMealChange = (value: string) => {
     setFormData((prev) => ({ ...prev, mealPreference: value }));
+    setShouldCheckScroll(true);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -108,8 +113,17 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
       <div className="space-y-2">
-        <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">Your Seat at the Table</h2>
-        <p className="text-white/60 text-base">Let us know your meal preference for the evening</p>
+        {attending ? (
+          <>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">Your Seat at the Table</h2>
+            <p className="text-white/60 text-base">Let us know your meal preference for the evening</p>
+          </>
+        ) : (
+          <>
+            <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">We'll Miss You</h2>
+            <p className="text-white/60 text-base">Hope to see you another time</p>
+          </>
+        )}
       </div>
       
       <div className="space-y-8">
@@ -144,11 +158,12 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
               {mealOptions.map((option) => (
                 <div
                   key={option.id}
-                  className={`flex items-start space-x-4 rounded-2xl border p-5 transition-colors ${
+                  className={`flex items-start space-x-4 rounded-2xl border p-5 cursor-pointer transition-colors ${
                     formData.mealPreference === option.id 
                     ? 'border-green-500 bg-green-500/10' 
                     : 'border-white/10 hover:bg-white/5'
                   }`}
+                  onClick={() => handleMealChange(option.id)}
                 >
                   <RadioGroupItem
                     value={option.id}
