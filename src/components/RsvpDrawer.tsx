@@ -23,8 +23,8 @@ const RsvpDrawer = ({ show, onClose, onSubmit, isAttending, hasRsvped, rsvpName 
       <div 
         className="fixed inset-0 z-50 overflow-y-auto"
       >
-        <div className="min-h-full flex items-center justify-center p-4">
-          <div className="relative w-full max-w-lg mx-auto bg-neutral-900 rounded-3xl">
+        <div className="min-h-full">
+          <div className="w-full h-full bg-neutral-900">
             <div className="p-6">
               <div className="w-12 h-1 bg-white/20 rounded-full mx-auto mb-6" />
               <RsvpForm 
