@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
@@ -49,13 +48,33 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
     attending: attending,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  const submitButtonRef = useRef<HTMLButtonElement>(null);
+  
   useEffect(() => {
     setFormData(prev => ({
       ...prev,
       attending: attending
     }));
   }, [attending]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          submitButtonRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }
+      },
+      {
+        threshold: 0
+      }
+    );
+
+    if (submitButtonRef.current) {
+      observer.observe(submitButtonRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -151,6 +170,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
       </div>
 
       <button
+        ref={submitButtonRef}
         type="submit"
         disabled={isSubmitting}
         className="w-full py-4 px-6 rounded-2xl bg-white/10 backdrop-blur-sm text-white font-medium hover:bg-white/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
