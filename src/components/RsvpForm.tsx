@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -65,11 +66,17 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
   const handleMealChange = (value: string) => {
     setFormData((prev) => ({ ...prev, mealPreference: value }));
     
-    // Simple smooth scroll to the button
-    submitButtonRef.current?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'nearest'
-    });
+    // Add a small delay to ensure the DOM has updated
+    setTimeout(() => {
+      const parentContainer = submitButtonRef.current?.closest('.overflow-y-auto');
+      if (parentContainer && submitButtonRef.current) {
+        const buttonBottom = submitButtonRef.current.offsetTop + submitButtonRef.current.offsetHeight;
+        parentContainer.scrollTo({
+          top: buttonBottom,
+          behavior: 'smooth'
+        });
+      }
+    }, 100);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -98,7 +105,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
         {attending ? (
           <>
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">Your Seat at the Table</h2>
-            <p className="text-white/60 text-base">Let us know your meal preference for the evening</p>
+            <p className="text-white/60 text-base">Fresh flavors, seasonal ingredients, and a delicious meal to share.</p>
           </>
         ) : (
           <>
