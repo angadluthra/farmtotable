@@ -12,11 +12,13 @@
     <meta property="og:image" content="/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png" />
     <meta property="og:type" content="website" />
     <script>
-      // Only redirect www to non-www
+      // Only redirect www to non-www if needed
       if (window.location.hostname.startsWith('www.')) {
         window.location.href = window.location.href.replace('www.', '');
       }
     </script>
+    <!-- Add base tag -->
+    <base href="/" />
   </head>
 
   <body>
