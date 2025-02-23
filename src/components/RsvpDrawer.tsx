@@ -22,10 +22,10 @@ const RsvpDrawer = ({ show, onClose, onSubmit, isAttending, hasRsvped, rsvpName 
         onClick={onClose}
       />
       <div 
-        className="fixed inset-0 z-50 overflow-hidden flex items-center sm:items-center justify-center"
+        className="fixed inset-0 z-50 overflow-hidden flex items-center justify-center"
       >
-        <div className="relative w-full sm:w-[28rem] h-full max-h-[100dvh] flex flex-col">
-          <div className="w-full h-full sm:h-auto sm:max-h-[90vh] sm:my-0 sm:rounded-2xl bg-neutral-900 overflow-hidden">
+        <div className="relative w-full sm:w-[28rem] h-full sm:h-auto flex flex-col sm:my-8">
+          <div className="w-full h-full sm:h-auto sm:max-h-[90vh] sm:rounded-2xl bg-neutral-900 overflow-hidden">
             <div className="relative h-full flex flex-col">
               <div className="absolute top-6 right-6 z-10">
                 <button
