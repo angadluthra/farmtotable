@@ -90,7 +90,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
     <form onSubmit={handleSubmit} className="space-y-8 animate-in slide-in-from-bottom duration-300">
       <div className="space-y-2">
         <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">Your Seat at the Table</h2>
-        <p className="text-white/60 text-base sm:text-lg">Let us know your meal preference for the evening</p>
+        <p className="text-white/60 text-base">Let us know your meal preference for the evening</p>
       </div>
       
       <div className="space-y-8">
@@ -104,7 +104,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            className="w-full px-4 py-3.5 rounded-2xl border border-white/10 bg-white/5 text-white placeholder-white/30 focus:border-white/20 focus:outline-none focus:ring-0 transition-colors backdrop-blur-sm text-base"
+            className="w-full px-4 py-3.5 rounded-2xl border border-white/10 bg-white/5 text-white placeholder-white/30 focus:border-white/20 focus:outline-none focus:ring-0 transition-colors backdrop-blur-sm"
             required
             disabled={isSubmitting}
           />
@@ -114,7 +114,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
           <div className="space-y-6">
             <div className="space-y-2">
               <h3 className="text-2xl font-medium">What's on Your Plate?</h3>
-              <p className="text-white/60 text-base">Choose your preferred dish for the evening</p>
+              <p className="text-white/60">Choose your preferred dish for the evening</p>
             </div>
             
             <RadioGroup
@@ -130,14 +130,14 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
                   <RadioGroupItem
                     value={option.id}
                     id={option.id}
-                    className="border-white/20 text-white mt-1.5 h-5 w-5"
+                    className="border-white/20 text-white mt-1.5"
                   />
                   <Label
                     htmlFor={option.id}
                     className="flex-1 cursor-pointer space-y-1.5"
                   >
-                    <div className="font-medium text-lg">{option.title}</div>
-                    <div className="text-base text-white/60">{option.description}</div>
+                    <div className="font-medium">{option.title}</div>
+                    <div className="text-white/60">{option.description}</div>
                   </Label>
                 </div>
               ))}
@@ -149,7 +149,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-4 px-6 rounded-2xl bg-white/10 backdrop-blur-sm text-white font-medium text-lg hover:bg-white/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full py-4 px-6 rounded-2xl bg-white/10 backdrop-blur-sm text-white font-medium hover:bg-white/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isSubmitting ? "Submitting..." : initialData ? "Update RSVP" : "Confirm"}
       </button>
