@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import EventDetails from "@/components/EventDetails";
 import TopBar from "@/components/TopBar";
@@ -124,6 +125,12 @@ const Index = () => {
       setRsvpResponse(formData.attending);
       setCurrentRsvpId(rsvpId);
       setShowRsvpForm(false);
+
+      // Scroll to top after form submission
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     } catch (error) {
       console.error('Error saving RSVP:', error);
     }
