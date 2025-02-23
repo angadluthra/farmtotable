@@ -253,8 +253,8 @@ const Index = () => {
                 </svg>
               </button>
 
-              <div className="text-center text-sm text-gray-400 pt-2 pb-12">
-                <div>Hosted by {eventDetails.hosts}</div>
+              <div className="text-center text-sm pt-8 pb-24">
+                <div className="text-white/90">Hosted by {eventDetails.hosts}</div>
               </div>
             </div>
             
