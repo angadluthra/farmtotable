@@ -127,13 +127,20 @@ const Index = () => {
       setCurrentRsvpId(rsvpId);
       setShowRsvpForm(false);
 
-      // Scroll the main container to top after form submission
-      if (mainScrollRef.current) {
-        mainScrollRef.current.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      }
+      console.log('Attempting to scroll to top...');
+      console.log('mainScrollRef exists:', !!mainScrollRef.current);
+      
+      // Add a small delay to ensure the drawer has closed
+      setTimeout(() => {
+        if (mainScrollRef.current) {
+          console.log('Scrolling to top...');
+          mainScrollRef.current.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        }
+      }, 300);
+      
     } catch (error) {
       console.error('Error saving RSVP:', error);
     }
