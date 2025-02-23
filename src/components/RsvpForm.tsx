@@ -1,6 +1,7 @@
 
 import React, { useState, useEffect } from "react";
-import { ChevronDown } from "lucide-react";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 
 interface RsvpFormProps {
@@ -18,6 +19,24 @@ interface FormData {
   attending: boolean;
 }
 
+const mealOptions = [
+  {
+    id: "vegetarian",
+    title: "Farm Fresh Vegetarian",
+    description: "Seasonal vegetables and herbs from our local garden"
+  },
+  {
+    id: "vegan",
+    title: "Plant-Based Delight",
+    description: "Creative dishes crafted entirely from garden-fresh produce"
+  },
+  {
+    id: "gluten-free",
+    title: "Gluten-Free Garden",
+    description: "Naturally gluten-free ingredients with maximum flavor"
+  }
+];
+
 const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
   const [formData, setFormData] = useState<FormData>({
     name: initialData?.name || "",
@@ -33,9 +52,13 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
     }));
   }, [attending]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleMealChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, mealPreference: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -82,28 +105,37 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
         </div>
 
         {attending && (
-          <div className="space-y-2 relative">
-            <label htmlFor="mealPreference" className="text-sm font-medium text-white/60">
-              Your Meal Preference
-            </label>
-            <p className="text-sm text-white/40 mb-2">Please select your choice of mains for the evening</p>
-            <div className="relative">
-              <select
-                id="mealPreference"
-                name="mealPreference"
-                value={formData.mealPreference}
-                onChange={handleInputChange}
-                className="w-full px-4 py-3 rounded-full border border-white/10 bg-white/5 text-white focus:border-white/20 focus:outline-none focus:ring-0 transition-colors backdrop-blur-sm appearance-none"
-                required
-                disabled={isSubmitting}
-              >
-                <option value="" className="bg-neutral-900">Select your preference</option>
-                <option value="vegetarian" className="bg-neutral-900">Vegetarian</option>
-                <option value="vegan" className="bg-neutral-900">Vegan</option>
-                <option value="gluten-free" className="bg-neutral-900">Gluten Free</option>
-              </select>
-              <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-white/60" size={20} />
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-sm font-medium text-white/60">Your Meal Preference</h3>
+              <p className="text-sm text-white/40 mb-4">Please select your choice of mains for the evening</p>
             </div>
+            
+            <RadioGroup
+              value={formData.mealPreference}
+              onValueChange={handleMealChange}
+              className="space-y-4"
+            >
+              {mealOptions.map((option) => (
+                <div
+                  key={option.id}
+                  className="flex items-center space-x-3 rounded-lg border border-white/10 p-4 hover:bg-white/5 transition-colors"
+                >
+                  <RadioGroupItem
+                    value={option.id}
+                    id={option.id}
+                    className="border-white/20 text-white"
+                  />
+                  <Label
+                    htmlFor={option.id}
+                    className="flex-1 cursor-pointer space-y-1"
+                  >
+                    <div className="font-medium">{option.title}</div>
+                    <div className="text-sm text-white/60">{option.description}</div>
+                  </Label>
+                </div>
+              ))}
+            </RadioGroup>
           </div>
         )}
       </div>
