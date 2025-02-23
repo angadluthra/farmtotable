@@ -3,6 +3,7 @@ import EventDetails from "@/components/EventDetails";
 import TopBar from "@/components/TopBar";
 import ActionButtons from "@/components/ActionButtons";
 import RsvpDrawer from "@/components/RsvpDrawer";
+import EventInfo from "@/components/EventInfo";
 import { formatForCalendar } from "@/utils/date";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -228,55 +229,12 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Info Section */}
-        <div className="relative z-20 -mt-8">
-          <div className="relative">
-            <div className="container mx-auto max-w-lg p-6 space-y-4">
-              <div className="flex items-center justify-between p-4 rounded-xl bg-black/20 backdrop-blur-sm">
-                <div className="flex items-center gap-4">
-                  {eventDetails.weather.condition === "Mostly Sunny" ? (
-                    <svg className="w-8 h-8 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707" />
-                    </svg>
-                  ) : (
-                    <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
-                    </svg>
-                  )}
-                  <div>
-                    <div className="text-2xl font-light">{eventDetails.weather.temp}°</div>
-                    <div className="text-sm text-gray-400">
-                      H: {eventDetails.weather.high}° L: {eventDetails.weather.low}°
-                    </div>
-                  </div>
-                </div>
-                <div className="text-sm text-right text-white/60">
-                  {eventDetails.weather.condition}
-                </div>
-              </div>
-
-              <button 
-                onClick={handleLocationClick}
-                className="w-full p-4 rounded-xl bg-black/20 backdrop-blur-sm text-left flex items-center justify-between group hover:bg-black/30 transition-colors"
-              >
-                <div>
-                  <div className="font-medium">{eventDetails.location.name}</div>
-                  <div className="text-sm text-gray-400">{eventDetails.location.address}</div>
-                </div>
-                <svg className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-
-              <div className="text-center text-sm pt-8 pb-24">
-                <div className="text-white/90">Hosted by {eventDetails.hosts}</div>
-              </div>
-            </div>
-            
-            {/* Bottom gradient */}
-            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none" />
-          </div>
-        </div>
+        <EventInfo 
+          weather={eventDetails.weather}
+          location={eventDetails.location}
+          hosts={eventDetails.hosts}
+          onLocationClick={handleLocationClick}
+        />
       </div>
 
       <RsvpDrawer 
