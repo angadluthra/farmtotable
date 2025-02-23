@@ -100,8 +100,8 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col">
-      <div className="space-y-8">
+    <form onSubmit={handleSubmit} className="flex flex-col min-h-[calc(100dvh-8rem)] sm:min-h-0 sm:h-auto">
+      <div className="flex-1 space-y-8">
         <div className="space-y-2">
           {attending ? (
             <>
@@ -175,7 +175,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
         </div>
       </div>
 
-      <div className="sticky bottom-0 pt-8 mt-8">
+      <div className="sticky bottom-0 pt-8 mt-8 sm:relative sm:mt-0">
         <button
           ref={submitButtonRef}
           type="submit"
