@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
@@ -49,7 +48,6 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
     attending: attending,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [shouldCheckScroll, setShouldCheckScroll] = useState(false);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
   
   useEffect(() => {
@@ -59,28 +57,6 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
     }));
   }, [attending]);
 
-  useEffect(() => {
-    if (!shouldCheckScroll) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) {
-          submitButtonRef.current?.scrollIntoView({ behavior: 'smooth' });
-          setShouldCheckScroll(false); // Reset after scrolling
-        }
-      },
-      {
-        threshold: 0
-      }
-    );
-
-    if (submitButtonRef.current) {
-      observer.observe(submitButtonRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, [shouldCheckScroll]);
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -88,7 +64,13 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
 
   const handleMealChange = (value: string) => {
     setFormData((prev) => ({ ...prev, mealPreference: value }));
-    setShouldCheckScroll(true);
+    // Delayed smooth scroll to allow manual scrolling
+    setTimeout(() => {
+      submitButtonRef.current?.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'nearest'
+      });
+    }, 100);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

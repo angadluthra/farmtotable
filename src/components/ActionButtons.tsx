@@ -10,7 +10,7 @@ interface ActionButtonsProps {
 
 const ActionButtons = ({ rsvpResponse, onGoingClick, onNotGoingClick }: ActionButtonsProps) => {
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
       <button 
         onClick={onGoingClick}
         className={`flex items-center justify-center gap-2 py-3 px-6 rounded-full ${
