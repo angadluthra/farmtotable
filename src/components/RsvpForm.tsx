@@ -38,7 +38,7 @@ const mealOptions = [
   {
     id: "salmon",
     title: "Citrus-Infused Grilled Salmon",
-    description: "Served with roasted baby potatoes, asparagus, and a dill yogurt sauce"
+    description: "Served with roasted baby potatoes, asparagus, and a creamy dill yogurt"
   }
 ];
 
