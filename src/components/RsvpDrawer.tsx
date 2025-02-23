@@ -37,7 +37,7 @@ const RsvpDrawer = ({ show, onClose, onSubmit, isAttending, hasRsvped, rsvpName 
                 </button>
               </div>
               <div className="sm:hidden w-12 h-1 bg-white/20 rounded-full mx-auto my-6" />
-              <div className="flex-1 overflow-y-auto overscroll-contain px-6 pb-6 pt-6 sm:pt-12 scrollbar-none">
+              <div className="flex-1 overflow-y-auto overscroll-contain px-6 pb-6 pt-6 sm:pt-12 scrollbar-none no-scrollbar">
                 <RsvpForm 
                   onSubmit={onSubmit} 
                   attending={isAttending}
@@ -56,4 +56,3 @@ const RsvpDrawer = ({ show, onClose, onSubmit, isAttending, hasRsvped, rsvpName 
 };
 
 export default RsvpDrawer;
-
