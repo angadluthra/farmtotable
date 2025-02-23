@@ -105,7 +105,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
         {attending ? (
           <>
             <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">Your Seat at the Table</h2>
-            <p className="text-white/60 text-base">Fresh flavors, seasonal ingredients, and a delicious meal to share.</p>
+            <p className="text-white/60 text-base">Let us know your meal preference for the evening</p>
           </>
         ) : (
           <>
