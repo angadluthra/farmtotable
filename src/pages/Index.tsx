@@ -181,9 +181,12 @@ const Index = () => {
       >
         <div className="relative min-h-screen">
           {/* Background Image with Parallax */}
-          <div className="fixed inset-0 -z-10">
+          <div 
+            className="fixed inset-0 -z-10 pointer-events-none"
+            aria-hidden="true"
+          >
             <div 
-              className="absolute inset-0 bg-cover bg-center transform-gpu will-change-transform"
+              className="absolute inset-0 bg-cover bg-center transform-gpu will-change-transform pointer-events-none"
               style={{
                 backgroundImage: `url("/lovable-uploads/2f2a54a4-d876-40e2-9237-4267dccca10b.png")`,
                 transform: `translateY(${parallaxValue}px)`,
