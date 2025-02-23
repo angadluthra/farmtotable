@@ -87,15 +87,15 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 animate-in slide-in-from-bottom duration-300">
-      <div>
-        <h2 className="text-2xl font-semibold tracking-tight">Your Seat at the Table</h2>
-        <p className="text-white/60 mt-1">Let us know your meal preference for the evening</p>
+    <form onSubmit={handleSubmit} className="space-y-8 animate-in slide-in-from-bottom duration-300">
+      <div className="space-y-2">
+        <h2 className="text-2xl sm:text-3xl font-semibold tracking-tight">Your Seat at the Table</h2>
+        <p className="text-white/60 text-base sm:text-lg">Let us know your meal preference for the evening</p>
       </div>
       
-      <div className="space-y-6">
-        <div className="space-y-2">
-          <label htmlFor="name" className="text-sm font-medium text-white/60">
+      <div className="space-y-8">
+        <div className="space-y-3">
+          <label htmlFor="name" className="text-base font-medium text-white/60">
             Please add your name
           </label>
           <input
@@ -104,17 +104,17 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            className="w-full px-4 py-3 rounded-full border border-white/10 bg-white/5 text-white placeholder-white/30 focus:border-white/20 focus:outline-none focus:ring-0 transition-colors backdrop-blur-sm"
+            className="w-full px-4 py-3.5 rounded-2xl border border-white/10 bg-white/5 text-white placeholder-white/30 focus:border-white/20 focus:outline-none focus:ring-0 transition-colors backdrop-blur-sm text-base"
             required
             disabled={isSubmitting}
           />
         </div>
 
         {attending && (
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-lg font-medium">What's on Your Plate?</h3>
-              <p className="text-white/60 text-sm mt-1">Choose your preferred dish for the evening</p>
+          <div className="space-y-6">
+            <div className="space-y-2">
+              <h3 className="text-2xl font-medium">What's on Your Plate?</h3>
+              <p className="text-white/60 text-base">Choose your preferred dish for the evening</p>
             </div>
             
             <RadioGroup
@@ -125,19 +125,19 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
               {mealOptions.map((option) => (
                 <div
                   key={option.id}
-                  className="flex items-start space-x-3 rounded-lg border border-white/10 p-4 hover:bg-white/5 transition-colors"
+                  className="flex items-start space-x-4 rounded-2xl border border-white/10 p-5 hover:bg-white/5 transition-colors"
                 >
                   <RadioGroupItem
                     value={option.id}
                     id={option.id}
-                    className="border-white/20 text-white mt-1"
+                    className="border-white/20 text-white mt-1.5 h-5 w-5"
                   />
                   <Label
                     htmlFor={option.id}
-                    className="flex-1 cursor-pointer space-y-1"
+                    className="flex-1 cursor-pointer space-y-1.5"
                   >
-                    <div className="font-medium">{option.title}</div>
-                    <div className="text-sm text-white/60">{option.description}</div>
+                    <div className="font-medium text-lg">{option.title}</div>
+                    <div className="text-base text-white/60">{option.description}</div>
                   </Label>
                 </div>
               ))}
@@ -149,7 +149,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-3 px-6 rounded-full bg-white/10 backdrop-blur-sm text-white font-medium hover:bg-white/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full py-4 px-6 rounded-2xl bg-white/10 backdrop-blur-sm text-white font-medium text-lg hover:bg-white/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isSubmitting ? "Submitting..." : initialData ? "Update RSVP" : "Confirm"}
       </button>
