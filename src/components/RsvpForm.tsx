@@ -125,12 +125,16 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
               {mealOptions.map((option) => (
                 <div
                   key={option.id}
-                  className="flex items-start space-x-4 rounded-2xl border border-white/10 p-5 hover:bg-white/5 transition-colors"
+                  className={`flex items-start space-x-4 rounded-2xl border p-5 transition-colors ${
+                    formData.mealPreference === option.id 
+                    ? 'border-green-500 bg-green-500/10' 
+                    : 'border-white/10 hover:bg-white/5'
+                  }`}
                 >
                   <RadioGroupItem
                     value={option.id}
                     id={option.id}
-                    className="border-white/20 text-white mt-1.5"
+                    className="border-white/20 text-white mt-1.5 data-[state=checked]:border-green-500 data-[state=checked]:bg-green-500"
                   />
                   <Label
                     htmlFor={option.id}
