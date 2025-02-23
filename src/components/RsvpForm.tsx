@@ -50,6 +50,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const submitButtonRef = useRef<HTMLButtonElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   
   useEffect(() => {
     setFormData(prev => ({
@@ -68,11 +69,11 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
     
     // Add a small delay to ensure the DOM has updated
     setTimeout(() => {
-      const parentContainer = submitButtonRef.current?.closest('.overflow-y-auto');
-      if (parentContainer && submitButtonRef.current) {
-        const buttonBottom = submitButtonRef.current.offsetTop + submitButtonRef.current.offsetHeight;
-        parentContainer.scrollTo({
-          top: buttonBottom,
+      if (formRef.current && submitButtonRef.current) {
+        const buttonRect = submitButtonRef.current.getBoundingClientRect();
+        const offset = buttonRect.bottom + 32; // Add some padding
+        formRef.current.scrollTo({
+          top: offset,
           behavior: 'smooth'
         });
       }
@@ -100,7 +101,11 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col min-h-[calc(100dvh-8rem)] sm:min-h-0 sm:h-auto">
+    <form 
+      ref={formRef}
+      onSubmit={handleSubmit} 
+      className="flex flex-col h-full overflow-y-auto"
+    >
       <div className="flex-1 space-y-8">
         <div className="space-y-2">
           {attending ? (
@@ -175,7 +180,7 @@ const RsvpForm = ({ onSubmit, attending, initialData }: RsvpFormProps) => {
         </div>
       </div>
 
-      <div className="sticky bottom-0 pt-8 mt-8 sm:relative sm:mt-0">
+      <div className="py-8">
         <button
           ref={submitButtonRef}
           type="submit"
