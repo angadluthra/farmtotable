@@ -14,12 +14,9 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename="/farmtotable">
         <Routes>
-          {/* Redirect root to /farmtotable */}
-          <Route path="/" element={<Navigate to="/farmtotable" replace />} />
-          {/* Main event page - accessible at both /farmtotable and root */}
-          <Route path="/farmtotable" element={<Index />} />
+          <Route path="/" element={<Index />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
