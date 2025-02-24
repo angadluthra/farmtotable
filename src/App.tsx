@@ -16,7 +16,9 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          {/* Redirect root to /farmtotable */}
+          <Route path="/" element={<Navigate to="/farmtotable" replace />} />
+          {/* Main event page - accessible at both /farmtotable and root */}
           <Route path="/farmtotable" element={<Index />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
