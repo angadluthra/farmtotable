@@ -36,6 +36,12 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
         
+      - name: Create CNAME file
+        run: echo "theketlihome.com" > dist/CNAME
+        
+      - name: Create 404.html
+        run: cp dist/index.html dist/404.html
+        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
@@ -44,7 +50,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
-
-      - name: Create 404.html
-        run: cp dist/index.html dist/404.html
 
