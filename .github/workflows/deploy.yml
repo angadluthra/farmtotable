@@ -31,20 +31,9 @@ jobs:
         env:
           VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
           VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
-          BASE_URL: "/"
           
       - name: Setup Pages
         uses: actions/configure-pages@v3
-        
-      - name: Create CNAME file
-        run: |
-          mkdir -p dist
-          echo "theketlihome.com" > dist/CNAME
-        
-      - name: Create 404.html
-        run: |
-          mkdir -p dist
-          cp dist/index.html dist/404.html
         
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
@@ -54,3 +43,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2
+
